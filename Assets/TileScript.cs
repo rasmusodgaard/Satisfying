@@ -21,9 +21,17 @@ public class TileScript : MonoBehaviour
     //     spriteRenderer.color = Color.white;
     // }
 
-    public void ColorTile(Color color)
+    public bool ColorTile(Color color)
     {
-        spriteRenderer.color = color;
+        if (spriteRenderer.color == color)
+        {
+            return false;
+        }
+        else
+        {
+            spriteRenderer.color = color;
+            return true;
+        }
     }
 
 }

@@ -17,6 +17,8 @@ public class GridManager : MonoBehaviour
     private float spriteSideLength;
     private TileScript[,] tileScripts;
 
+    public HSBColor hsb = new HSBColor(0, 1, 1);
+
     void Start()
     {
         min = Camera.main.ScreenToWorldPoint(Vector3.zero);
@@ -51,6 +53,7 @@ public class GridManager : MonoBehaviour
             for (int x = 0; x < gridSize.x; x++)
             {
                 GameObject clone = Instantiate(go, new Vector3(min.x + (sideLength.x / gridSize.x) * 0.5f + (sideLength.x / gridSize.x * x), min.y + (sideLength.x / gridSize.x) * 0.5f + (sideLength.y / gridSize.y * y), 0), Quaternion.identity);
+                clone.transform.parent = this.transform;
                 tileScripts[x, y] = clone.GetComponent<TileScript>();
             }
         }
@@ -59,7 +62,21 @@ public class GridManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DrawBoundaries();
+        Camera.main.backgroundColor = hsb.ToColor();
+
+        // DrawBoundaries();
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                for (int x = 0; x < gridSize.x; x++)
+                {
+                    HSBColor xCol = new HSBColor(x / gridSize.x, 1, 1);
+                    Color yCol = Color.Lerp(Color.black, Color.white, y / gridSize.y) * xCol.ToColor();
+                    tileScripts[x, y].ColorTile(yCol);
+                }
+            }
+        }
     }
 
     private void DrawBoundaries()
