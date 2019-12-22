@@ -77,6 +77,11 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            ScreenCapture.CaptureScreenshot("Test - " + System.DateTime.Now.ToString() + ".png", 2);
+        }
     }
 
     private void DrawBoundaries()
