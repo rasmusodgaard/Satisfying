@@ -34,4 +34,9 @@ public class TileScript : MonoBehaviour
         }
     }
 
+    public Color GetColor()
+    {
+        return spriteRenderer.color;
+    }
+
 }

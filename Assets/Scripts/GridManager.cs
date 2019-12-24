@@ -17,6 +17,9 @@ public class GridManager : MonoBehaviour
     private float spriteSideLength;
     private TileScript[,] tileScripts;
 
+    private Color[,] temp;
+    public bool colorChangerOpen = false;
+
     void Start()
     {
         min = Camera.main.ScreenToWorldPoint(Vector3.zero);
@@ -28,7 +31,8 @@ public class GridManager : MonoBehaviour
 
         gridSize = new Vector2(Screen.width / divider, Screen.height / divider);
         tileScripts = new TileScript[(int)gridSize.x, (int)gridSize.y];
-
+        temp = new Color[(int)gridSize.x, (int)gridSize.y];
+        print("Grid: " + gridSize);
         topRight = max + new Vector3(0, 0, 10);
         topLeft = new Vector3(min.x, max.y, 0);
         bottomLeft = min + new Vector3(0, 0, 10);
@@ -63,23 +67,46 @@ public class GridManager : MonoBehaviour
     void Update()
     {
         // DrawBoundaries();
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            for (int y = 0; y < gridSize.y; y++)
-            {
-                for (int x = 0; x < gridSize.x; x++)
-                {
-                    HSBColor xCol = new HSBColor(x / gridSize.x, 1, 1);
-                    Color yCol = Color.Lerp(Color.black, Color.white, y / gridSize.y) * xCol.ToColor();
-                    tileScripts[x, y].ColorTile(yCol);
-                }
-            }
-        }
 
         if (Input.GetKeyDown(KeyCode.P))
         {
             ScreenCapture.CaptureScreenshot("Test - " + System.DateTime.Now.ToString() + ".png", 2);
         }
+    }
+
+    public void OpenColorChanger()
+    {
+        for (int y = 0; y < gridSize.y; y++)
+        {
+            for (int x = 0; x < gridSize.x; x++)
+            {
+                temp[x, y] = tileScripts[x, y].GetColor();
+                Color final = new Color();
+                if (x < gridSize.x / 2)
+                {
+                    final = new HSBColor(y / gridSize.y, 1, x / gridSize.x * 2).ToColor();
+                }
+                else
+                {
+                    final = new HSBColor(y / gridSize.y, Mathf.InverseLerp(gridSize.x, gridSize.x / 2, x), 1).ToColor();
+                }
+
+                tileScripts[x, y].ColorTile(final);
+            }
+        }
+        colorChangerOpen = true;
+    }
+
+    public void CloseColorChanger()
+    {
+        for (int y = 0; y < gridSize.y; y++)
+        {
+            for (int x = 0; x < gridSize.x; x++)
+            {
+                tileScripts[x, y].ColorTile(temp[x, y]);
+            }
+        }
+        colorChangerOpen = false;
     }
 
     private void DrawBoundaries()
