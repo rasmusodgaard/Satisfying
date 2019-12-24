@@ -152,7 +152,11 @@ MonoBehaviour:
   grid: {fileID: 824099854}
   standard: {r: 1, g: 0.97110796, b: 0, a: 1}
   over: {r: 0, g: 0, b: 0, a: 0}
+  magnetSpeed: 100
+  minSqDist: 5
+  maxSqDist: 100
   maxStrokes: 40
+  radiusDivider: 100
 --- !u!4 &397780495
 Transform:
   m_ObjectHideFlags: 0
@@ -311,7 +315,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 14198853272177510, guid: b8c0988f9c91348d398324b8f00382c4, type: 3}
-  divider: 12
+  divider: 24
+  colorChangerOpen: 0
 --- !u!4 &824099855
 Transform:
   m_ObjectHideFlags: 0
