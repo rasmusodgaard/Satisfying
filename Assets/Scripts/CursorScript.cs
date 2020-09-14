@@ -12,6 +12,7 @@ public class CursorScript : MonoBehaviour
 
     private Camera cam;
     Vector3 mousePos = new Vector3();
+    private SpriteRenderer cursorSprite;
 
     //---------------------------------------------------//
     //Brush general
@@ -29,6 +30,7 @@ public class CursorScript : MonoBehaviour
     private float radius = 0.1f;
     private ContactFilter2D contactFilter2D = new ContactFilter2D();
 
+    public Brush_Base[] brushes;
 
 
     //---------------------------------------------------//
@@ -36,11 +38,6 @@ public class CursorScript : MonoBehaviour
     //---------------------------------------------------//
     private bool colorChangerOn = false;
 
-    //---------------------------------------------------//
-    //StandardBrush
-    //---------------------------------------------------//
-    private List<Collider2D> hoverList = new List<Collider2D>();
-    private List<Collider2D> tempList = new List<Collider2D>();
 
     //---------------------------------------------------//
     //MagnetBrush
@@ -66,6 +63,7 @@ public class CursorScript : MonoBehaviour
         brush = BrushEnum.standard;
         magnetResults = new List<Collider2D>();
         Camera.main.backgroundColor = Color.black;
+        cursorSprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Update()
@@ -79,29 +77,53 @@ public class CursorScript : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
-        switch (brush)
+        // switch (brush)
+        // {
+        //     case BrushEnum.colorChanger:
+        //         ColorChangerUpdate(mousePos);
+        //         break;
+
+        //     case BrushEnum.standard:
+        //         StandardUpdate(mousePos);
+        //         break;
+
+        //     case BrushEnum.smear:
+        //         SmearUpdate(mousePos);
+        //         break;
+
+        //     case BrushEnum.turn:
+        //         TurnUpdate(mousePos);
+        //         break;
+
+        //     case BrushEnum.magnet:
+        //         MagnetUpdate(mousePos);
+        //         break;
+        // }
+
+        //Make sure that a brush that is not in the brushes array is not selected
+        if ((int)brush >= brushes.Length)
         {
-            case BrushEnum.colorChanger:
-                ColorChangerUpdate(mousePos);
-                break;
+            print("Out of bounds brush selection");
+            return;
+        }
 
-            case BrushEnum.standard:
-                StandardUpdate(mousePos);
-                break;
 
-            case BrushEnum.smear:
-                SmearUpdate(mousePos);
-                break;
-
-            case BrushEnum.turn:
-                TurnUpdate(mousePos);
-                break;
-
-            case BrushEnum.magnet:
-                MagnetUpdate(mousePos);
-                break;
+        if (!colorChangerOn)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                brushes[(int)brush].Primary(mousePos, radius, paintColor);
+            }
+            else if (Input.GetMouseButton(1))
+            {
+                brushes[(int)brush].Secondary(mousePos, radius, paintColor);
+            }
+        }
+        else if (colorChangerOn)
+        {
+            ColorChangerUpdate(mousePos);
         }
     }
 
@@ -176,6 +198,8 @@ public class CursorScript : MonoBehaviour
                 TileScript tile = hit.collider.GetComponent<TileScript>();
 
                 paintColor = tile.GetColor();
+                cursorSprite.color = tile.GetColor();
+
             }
         }
         else if (Input.GetMouseButtonDown(1))
@@ -264,7 +288,6 @@ public class CursorScript : MonoBehaviour
                 TileScript tile = hit.collider.GetComponent<TileScript>();
                 if (tile != lastTile && tile != null)
                 {
-                    print("painted");
                     tile.ColorTile(Color.Lerp(paintColor, Color.grey, (float)tilesPaintedInStroke / (float)maxStrokes));
                     tilesPaintedInStroke = Mathf.Clamp(tilesPaintedInStroke, 0, maxStrokes) + 1;
                 }
@@ -293,14 +316,14 @@ public class CursorScript : MonoBehaviour
             //     lastTile = tile;
             // }
 
-            hoverList.Clear();
-            Physics2D.OverlapCircle(_mousePos, radius, contactFilter2D, hoverList);
-            foreach (var item in hoverList)
+            Collider2D[] hoverList = new Collider2D[3000];
+            int count = Physics2D.OverlapCircleNonAlloc(_mousePos, radius, hoverList);
+
+            for (int i = 0; i < count; i++)
             {
-                TileScript tile = item.GetComponent<TileScript>();
+                TileScript tile = hoverList[i].GetComponent<TileScript>();
                 if (tile != null)
                 {
-                    print("painted");
                     tile.ColorTile(paintColor);
                 }
             }

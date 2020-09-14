@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class GridManager : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class GridManager : MonoBehaviour
     private TileScript[,] tileScripts;
 
     private Color[,] temp;
+
+    [ShowInInspector, ReadOnly]
     public bool colorChangerOpen = false;
 
     void Start()
@@ -70,7 +73,11 @@ public class GridManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            ScreenCapture.CaptureScreenshot("Masterpeace - " + System.DateTime.Now.ToString() + ".png", 2);
+            string date = System.DateTime.Now.ToString();
+            date = date.Replace("/", "-");
+            date = date.Replace(" ", "_");
+            date = date.Replace(":", "-");
+            ScreenCapture.CaptureScreenshot("MasterPeace - " + date + ".png", 2);
         }
     }
 
