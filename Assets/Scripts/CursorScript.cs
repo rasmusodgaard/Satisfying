@@ -169,7 +169,8 @@ public class CursorScript : MonoBehaviour
         if (colorChangerOn && !grid.colorChangerOpen)
         {
             grid.OpenColorChanger();
-            brush = BrushEnum.colorChanger;
+            //brush = BrushEnum.colorChanger;
+            brush = BrushEnum.standard;
             print("Open");
         }
         else if (!colorChangerOn && grid.colorChangerOpen)
@@ -191,6 +192,7 @@ public class CursorScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            print("Fire one");
             RaycastHit2D hit = Physics2D.Raycast(_mousePos, Vector2.zero);
 
             if (hit.collider != null)
@@ -204,6 +206,8 @@ public class CursorScript : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1))
         {
+            print("Fire two");
+
             RaycastHit2D hit = Physics2D.Raycast(_mousePos, Vector2.zero);
 
             if (hit.collider != null)
@@ -214,6 +218,9 @@ public class CursorScript : MonoBehaviour
             }
         }
     }
+
+
+
 
     private void TurnUpdate(Vector3 _mousePos)
     {
@@ -237,38 +244,10 @@ public class CursorScript : MonoBehaviour
         }
     }
 
-    private void MagnetUpdate(Vector3 _mousePos)
-    {
-        //pull
-        if (Input.GetMouseButton(0))
-        {
-            magnetResults.Clear();
-            Physics2D.OverlapCircle(_mousePos, radius, contactFilter2D, magnetResults);
-            foreach (var item in magnetResults)
-            {
-                float sqDist = Vector3.SqrMagnitude(_mousePos - item.transform.position);
-                if (sqDist > minSqDist)
-                {
-                    Vector3 direction = (_mousePos - item.transform.position).normalized;
-                    item.transform.position += direction * magnetSpeed * Time.fixedDeltaTime;
-                }
-            }
-        }
-        //push
-        else if (Input.GetMouseButton(1))
-        {
-            magnetResults.Clear();
-            Physics2D.OverlapCircle(_mousePos, radius, contactFilter2D, magnetResults);
-            foreach (var item in magnetResults)
-            {
-                float sqDist = Vector3.SqrMagnitude(_mousePos - item.transform.position);
 
-                Vector3 direction = (_mousePos - item.transform.position).normalized;
-                item.transform.position += -direction * magnetSpeed * Time.fixedDeltaTime;
 
-            }
-        }
-    }
+
+
 
     private void SmearUpdate(Vector3 _mousePos)
     {
@@ -294,39 +273,6 @@ public class CursorScript : MonoBehaviour
                 lastTile = tile;
             }
 
-        }
-    }
-
-    private void StandardUpdate(Vector3 _mousePos)
-    {
-        if (Input.GetMouseButton(0))
-        {
-
-            // // TileScript tile = grid.GetTile(this.transform.position);
-            // RaycastHit2D hit = Physics2D.Raycast(_mousePos, Vector2.zero);
-
-            // if (hit.collider != null)
-            // {
-            //     TileScript tile = hit.collider.GetComponent<TileScript>();
-            //     if (tile != lastTile && tile != null)
-            //     {
-            //         print("painted");
-            //         tile.ColorTile(paintColor);
-            //     }
-            //     lastTile = tile;
-            // }
-
-            Collider2D[] hoverList = new Collider2D[3000];
-            int count = Physics2D.OverlapCircleNonAlloc(_mousePos, radius, hoverList);
-
-            for (int i = 0; i < count; i++)
-            {
-                TileScript tile = hoverList[i].GetComponent<TileScript>();
-                if (tile != null)
-                {
-                    tile.ColorTile(paintColor);
-                }
-            }
         }
     }
 }
