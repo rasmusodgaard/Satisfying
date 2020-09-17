@@ -2,17 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Brush_Turn : MonoBehaviour
+[CreateAssetMenu(fileName = "Brush_Turn", menuName = "ScriptableObjects/Brush_Turn", order = 1)]
+public class Brush_Turn : Brush_Base
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Primary(Vector3 _mousePosition, float _radius, Color _paintColor)
     {
-        
+        OverlapCircleResults results = GetPixels(_mousePosition, _radius);
+        for (int i = 0; i < results.count; i++)
+        {
+            results.colliders[i].transform.LookAt(_mousePosition);
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Secondary(Vector3 _mousePosition, float _radius, Color _paintColor)
     {
-        
+        OverlapCircleResults results = GetPixels(_mousePosition, _radius);
+        for (int i = 0; i < results.count; i++)
+        {
+            results.colliders[i].transform.rotation = Quaternion.identity;
+        }
     }
 }

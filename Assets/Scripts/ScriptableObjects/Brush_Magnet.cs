@@ -13,15 +13,15 @@ public class Brush_Magnet : Brush_Base
     public override void Primary(Vector3 _mousePosition, float _radius, Color _paintColor)
     {
 
-        Collider2D[] results = GetPixels(_mousePosition, _radius);
+        OverlapCircleResults results = GetPixels(_mousePosition, _radius);
 
-        for (int i = 0; i < results.Length; i++)
+        for (int i = 0; i < results.count; i++)
         {
-            float sqDist = Vector3.SqrMagnitude(_mousePosition - results[i].transform.position);
+            float sqDist = Vector3.SqrMagnitude(_mousePosition - results.colliders[i].transform.position);
             if (sqDist > minSqDist)
             {
-                Vector3 direction = ((_mousePosition - results[i].transform.position).normalized);
-                results[i].transform.position += direction * magnetSpeed * Time.fixedDeltaTime;
+                Vector3 direction = ((_mousePosition - results.colliders[i].transform.position).normalized);
+                results.colliders[i].transform.position += direction * magnetSpeed * Time.fixedDeltaTime;
             }
 
         }
@@ -29,21 +29,14 @@ public class Brush_Magnet : Brush_Base
 
     public override void Secondary(Vector3 _mousePosition, float _radius, Color _paintColor)
     {
-        Collider2D[] results = GetPixels(_mousePosition, _radius);
-        for (int i = 0; i < results.Length; i++)
+        OverlapCircleResults results = GetPixels(_mousePosition, _radius);
+        for (int i = 0; i < results.count; i++)
         {
-            float sqDist = Vector3.SqrMagnitude(_mousePosition - results[i].transform.position);
+            float sqDist = Vector3.SqrMagnitude(_mousePosition - results.colliders[i].transform.position);
 
-            Vector3 direction = (_mousePosition - results[i].transform.position).normalized;
-            results[i].transform.position += -direction * magnetSpeed * Time.fixedDeltaTime;
+            Vector3 direction = (_mousePosition - results.colliders[i].transform.position).normalized;
+            results.colliders[i].transform.position += -direction * magnetSpeed * Time.fixedDeltaTime;
 
         }
-    }
-
-    private Collider2D[] GetPixels(Vector2 _mousePosition, float _radius)
-    {
-        Collider2D[] results = new Collider2D[10000];
-        Physics2D.OverlapCircleNonAlloc(_mousePosition, _radius, results);
-        return results;
     }
 }
