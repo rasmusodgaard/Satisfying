@@ -22,7 +22,7 @@ public class Brush_Magnet : Brush_Base
                 Vector2 direction = ((_mousePosition - results.colliders[i].transform.position).normalized);
                 //results.colliders[i].transform.position += (Vector3)direction * magnetSpeed * Time.deltaTime;
                 var rigidbody = results.colliders[i].attachedRigidbody;
-                rigidbody.MovePosition(rigidbody.position + direction * magnetSpeed * Time.deltaTime);
+                rigidbody.MovePosition(rigidbody.position + direction * magnetSpeed * Time.deltaTime); // TODO: Check to make sure which is faster rigidbody or syncTransform
             }
 
         }

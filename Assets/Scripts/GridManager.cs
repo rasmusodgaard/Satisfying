@@ -1,5 +1,4 @@
-﻿using Sirenix.OdinInspector;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
@@ -9,7 +8,6 @@ public class GridManager : MonoBehaviour
 
     public GameObject pixelPrefab;
     public int divider = 32;
-    [ShowInInspector, ReadOnly]
     public bool colorChangerOpen = false;
 
     //----------------------------------------------//
