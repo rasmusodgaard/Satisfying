@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "Brush_Magnet", menuName = "ScriptableObjects/Brush_Magnet", order = 1)]
 public class Brush_Magnet : Brush_Base
 {
     public float magnetSpeed = 1;
+    public float pushSpeedMultiplier = 2;
     public float minSqDist = 5;
     public float maxSqDist = 75;
 
@@ -20,8 +19,10 @@ public class Brush_Magnet : Brush_Base
             float sqDist = Vector3.SqrMagnitude(_mousePosition - results.colliders[i].transform.position);
             if (sqDist > minSqDist)
             {
-                Vector3 direction = ((_mousePosition - results.colliders[i].transform.position).normalized);
-                results.colliders[i].transform.position += direction * magnetSpeed * Time.fixedDeltaTime;
+                Vector2 direction = ((_mousePosition - results.colliders[i].transform.position).normalized);
+                //results.colliders[i].transform.position += (Vector3)direction * magnetSpeed * Time.deltaTime;
+                var rigidbody = results.colliders[i].attachedRigidbody;
+                rigidbody.MovePosition(rigidbody.position + direction * magnetSpeed * Time.deltaTime);
             }
 
         }
@@ -34,8 +35,8 @@ public class Brush_Magnet : Brush_Base
         {
             float sqDist = Vector3.SqrMagnitude(_mousePosition - results.colliders[i].transform.position);
 
-            Vector3 direction = (_mousePosition - results.colliders[i].transform.position).normalized;
-            results.colliders[i].transform.position += -direction * magnetSpeed * Time.fixedDeltaTime;
+            Vector2 direction = (_mousePosition - results.colliders[i].transform.position).normalized;
+            results.colliders[i].transform.position += -(Vector3)direction * magnetSpeed * pushSpeedMultiplier * Time.deltaTime;
 
         }
     }
