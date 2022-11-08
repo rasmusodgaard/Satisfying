@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class CursorScript : MonoBehaviour
@@ -34,13 +32,13 @@ public class CursorScript : MonoBehaviour
 
 
     //---------------------------------------------------//
-    //ColorPicker
+    //  ColorPicker
     //---------------------------------------------------//
     private bool colorChangerOn = false;
 
 
     //---------------------------------------------------//
-    //MagnetBrush
+    //  MagnetBrush
     //---------------------------------------------------//
     private List<Collider2D> magnetResults;
     public float magnetSpeed = 1;
@@ -48,7 +46,7 @@ public class CursorScript : MonoBehaviour
     public float maxSqDist = 75;
 
     //---------------------------------------------------//
-    //SmearBrush
+    //  SmearBrush
     //---------------------------------------------------//
 
     private int tilesPaintedInStroke = 0;
@@ -69,7 +67,7 @@ public class CursorScript : MonoBehaviour
     void Update()
     {
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        this.transform.position = mousePos;
+        transform.position = mousePos;
 
         BrushSize();
 
@@ -98,6 +96,7 @@ public class CursorScript : MonoBehaviour
                 brushes[(int)brush].Secondary(mousePos, radius, paintColor);
             }
         }
+
         // Seperate logic for color changer
         else if (colorChangerOn)
         {
@@ -149,13 +148,11 @@ public class CursorScript : MonoBehaviour
             grid.OpenColorChanger();
             //brush = BrushEnum.colorChanger;
             brush = BrushEnum.standard;
-            print("Open");
         }
         else if (!colorChangerOn && grid.colorChangerOpen)
         {
             grid.CloseColorChanger();
             brush = tempBrush;
-            print("Close");
         }
 
         if (brush != lastBrush)
@@ -170,13 +167,19 @@ public class CursorScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            print("Fire one");
             RaycastHit2D hit = Physics2D.Raycast(_mousePos, Vector2.zero);
 
             if (hit.collider != null)
             {
                 TileScript tile = hit.collider.GetComponent<TileScript>();
-
+                if (tile == null)
+                {
+                    print("No hit");
+                }
+                else
+                {
+                    print("Hit: " + tile.GetColor());
+                }
                 paintColor = tile.GetColor();
                 cursorSprite.color = tile.GetColor();
 
@@ -184,8 +187,6 @@ public class CursorScript : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            print("Fire two");
-
             RaycastHit2D hit = Physics2D.Raycast(_mousePos, Vector2.zero);
 
             if (hit.collider != null)

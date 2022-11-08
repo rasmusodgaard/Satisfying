@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
-using Sirenix.OdinInspector;
 
 public class GridManager : MonoBehaviour
 {
@@ -30,14 +27,13 @@ public class GridManager : MonoBehaviour
     private TileScript[,] tileScripts;
     private float tileSize;
 
-    private Color[,] temp;
+    private Color[,] currentImageBackup;
 
     private Camera cam;
 
     void Awake()
     {
         cam = Camera.main;
-        temp = new Color[(int)gridSize.x, (int)gridSize.y];
     }
 
     void Start()
@@ -81,6 +77,7 @@ public class GridManager : MonoBehaviour
         spriteSideLength = pixelPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
 
         gridSize = new Vector2(Screen.width / divider, Screen.height / divider);
+        currentImageBackup = new Color[(int)gridSize.x, (int)gridSize.y];
 
         double worldScreenHeight = cam.orthographicSize * 2.0;
         double worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
@@ -92,7 +89,7 @@ public class GridManager : MonoBehaviour
 
     void Update()
     {
-        // DrawBoundaries();
+        //DrawBoundaries();
 
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -100,7 +97,7 @@ public class GridManager : MonoBehaviour
             date = date.Replace("/", "-");
             date = date.Replace(" ", "_");
             date = date.Replace(":", "-");
-            ScreenCapture.CaptureScreenshot("MasterPeace - " + date + ".png", 2);
+            ScreenCapture.CaptureScreenshot("Creations\\MasterPeace - " + date + ".png", 2);
         }
     }
 
@@ -110,7 +107,7 @@ public class GridManager : MonoBehaviour
         {
             for (int x = 0; x < gridSize.x; x++)
             {
-                temp[x, y] = tileScripts[x, y].GetColor();
+                currentImageBackup[x, y] = tileScripts[x, y].GetColor();
                 Color final = new Color();
                 if (x < gridSize.x / 2)
                 {
@@ -133,7 +130,7 @@ public class GridManager : MonoBehaviour
         {
             for (int x = 0; x < gridSize.x; x++)
             {
-                tileScripts[x, y].ColorTile(temp[x, y]);
+                tileScripts[x, y].ColorTile(currentImageBackup[x, y]);
             }
         }
         colorChangerOpen = false;
