@@ -29,6 +29,7 @@ public class CursorScript : MonoBehaviour
     private ContactFilter2D contactFilter2D = new ContactFilter2D();
 
     public Brush_Base[] brushes;
+    public float radiusDivider = 100;
 
 
     //---------------------------------------------------//
@@ -45,13 +46,6 @@ public class CursorScript : MonoBehaviour
     public float minSqDist = 5;
     public float maxSqDist = 75;
 
-    //---------------------------------------------------//
-    //  SmearBrush
-    //---------------------------------------------------//
-
-    private int tilesPaintedInStroke = 0;
-    public int maxStrokes = 42;
-    public float radiusDivider = 100;
 
     void Start()
     {
@@ -70,9 +64,7 @@ public class CursorScript : MonoBehaviour
         transform.position = mousePos;
 
         BrushSize();
-
         SwitchBrush();
-
     }
 
     void LateUpdate()
@@ -163,37 +155,34 @@ public class CursorScript : MonoBehaviour
     }
 
 
-    private void ColorChangerUpdate(Vector3 _mousePos)
+    private void ColorChangerUpdate(Vector3 mousePos)
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
-            RaycastHit2D hit = Physics2D.Raycast(_mousePos, Vector2.zero);
-
-            if (hit.collider != null)
+            Color newColor = new Color();
+            if (mousePos.x < 0)
             {
-                TileScript tile = hit.collider.GetComponent<TileScript>();
-                if (tile == null)
-                {
-                    print("No hit");
-                }
-                else
-                {
-                    print("Hit: " + tile.GetColor());
-                }
-                paintColor = tile.GetColor();
-                cursorSprite.color = tile.GetColor();
-
+                // On the left side of the screen, colors go to black from full hue by lerping brightness value
+                newColor = new HSBColor(Mathf.InverseLerp(grid.ScreenWorldspaceMin.y, grid.ScreenWorldspaceMax.y, mousePos.y),
+                                          1,
+                                          Mathf.InverseLerp(grid.ScreenWorldspaceMin.x, 0, mousePos.x)).ToColor();
             }
-        }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            RaycastHit2D hit = Physics2D.Raycast(_mousePos, Vector2.zero);
-
-            if (hit.collider != null)
+            else
             {
-                TileScript tile = hit.collider.GetComponent<TileScript>();
+                // On the right side of the screen, colors go to white from full hue by lerping the saturation value
+                newColor = new HSBColor(Mathf.InverseLerp(grid.ScreenWorldspaceMin.y, grid.ScreenWorldspaceMax.y, mousePos.y),
+                                          Mathf.InverseLerp(grid.ScreenWorldspaceMax.x, 0, mousePos.x),
+                                          1).ToColor();
+            }
 
-                Camera.main.backgroundColor = tile.GetColor();
+            if (Input.GetMouseButtonDown(0))
+            {
+                paintColor = newColor;
+                cursorSprite.color = newColor;
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                cam.backgroundColor = newColor;
             }
         }
     }
