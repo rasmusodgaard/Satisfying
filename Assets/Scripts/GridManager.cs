@@ -9,7 +9,7 @@ public class GridManager : MonoBehaviour
     //----------------------------------------------//
 
     public GameObject pixelPrefab;
-    public int divider = 32;
+    public int gridSizeDivider = 32;
     public List<Transform> TileTransforms { get; private set; }
     public bool ColorChangerOpen => colorChangerOpen;
     public Vector2 GridSize => gridSize;
@@ -82,7 +82,7 @@ public class GridManager : MonoBehaviour
         sideLengths = new Vector2(Mathf.Abs(screenWorldspaceMax.x - screenWorldspaceMin.x), Mathf.Abs(screenWorldspaceMax.y - screenWorldspaceMin.y));
         spriteSideLength = pixelPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
 
-        gridSize = new Vector2(Screen.width / divider, Screen.height / divider);
+        gridSize = new Vector2(Screen.width / gridSizeDivider, Screen.height / gridSizeDivider);
         currentImageBackup = new Color[(int)gridSize.x, (int)gridSize.y];
 
         double worldScreenHeight = cam.orthographicSize * 2.0;

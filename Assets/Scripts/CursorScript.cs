@@ -4,7 +4,6 @@ public class CursorScript : MonoBehaviour
 {
     public GridManager grid;
     public Color defaultColor = Color.gray;
-    public Color over;
     private Color paintColor = Color.black;
 
     private Camera cam;
@@ -27,13 +26,11 @@ public class CursorScript : MonoBehaviour
     private BrushEnum lastBrush = new BrushEnum();
     private BrushEnum tempBrush = new BrushEnum();
 
-    private TileScript lastTile;
-    private float radius = 0.1f;
-    private ContactFilter2D contactFilter2D = new ContactFilter2D();
-
+    private float brushRadius = 0.1f;
     public Brush_Base[] brushes;
     public float radiusDivider = 100;
 
+    float brushVisializationTargetAlpha = 100;
 
     //---------------------------------------------------//
     //  ColorPicker
@@ -56,8 +53,7 @@ public class CursorScript : MonoBehaviour
         this.transform.position = cam.ScreenToWorldPoint(Input.mousePosition);
         brush = BrushEnum.standard;
         Camera.main.backgroundColor = Color.black;
-        print("Brush size: " + brushSizeVisualizer.bounds.extents);
-        brushSizeVisualizer.transform.localScale = Vector3.one * radius * 2;
+        brushSizeVisualizer.transform.localScale = Vector3.one * brushRadius * 2;
     }
 
     void Update()
@@ -83,11 +79,11 @@ public class CursorScript : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                brushes[(int)brush].Primary(mousePos, radius, paintColor, grid.TileTransforms);
+                brushes[(int)brush].Primary(mousePos, brushRadius, paintColor, grid.TileTransforms);
             }
             else if (Input.GetMouseButton(1))
             {
-                brushes[(int)brush].Secondary(mousePos, radius, paintColor, grid.TileTransforms);
+                brushes[(int)brush].Secondary(mousePos, brushRadius, paintColor, grid.TileTransforms);
             }
         }
 
@@ -98,13 +94,14 @@ public class CursorScript : MonoBehaviour
         }
     }
 
+    // TODO: Fade brush size visualizer in when changed and out when not
     private void BrushSize()
     {
         if (!Mathf.Approximately(0, Input.mouseScrollDelta.y))
         {
-            radius += Input.mouseScrollDelta.y / radiusDivider;
-            radius = Mathf.Clamp(radius, 0.05f, 3);
-            brushSizeVisualizer.transform.localScale = Vector3.one * radius * 2;
+            brushRadius += Input.mouseScrollDelta.y / radiusDivider; // TODO: Make time dependant instead of mouse scroll delta
+            brushRadius = Mathf.Clamp(brushRadius, 0.05f, 3);
+            brushSizeVisualizer.transform.localScale = Vector3.one * brushRadius * 2;
         }
     }
 
@@ -128,15 +125,12 @@ public class CursorScript : MonoBehaviour
         {
             brush = BrushEnum.magnet;
         }
-        // else if (Input.GetKeyDown(KeyCode.S))
-        // {
-        //     brush = BrushEnum.smear;
-        // }
         else if (Input.GetKeyDown(KeyCode.T))
         {
             brush = BrushEnum.turn;
         }
 
+        // TODO: Make change to color changer code easier to read
         //Open and close color changer
         if (colorChangerOn && !grid.ColorChangerOpen)
         {

@@ -260,12 +260,6 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
   m_PVRTiledBaking: 0
---- !u!212 &798839660 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 2888098290608187499, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 8638884595661911554}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &824099854 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7156458649638725190, guid: 06532fad7d854414597be7b5574625a0,
@@ -278,96 +272,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b2f253b86224fcd98fc00c887fa8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1234167692
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1234167694}
-  - component: {fileID: 1234167693}
-  m_Layer: 0
-  m_Name: circle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &1234167693
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1234167692}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 23341993f2a8c433d926e05645209041, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &1234167694
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1234167692}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1312357537}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1312357537 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8638884595387863053, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 8638884595661911554}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7156458649351758408
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -383,6 +287,11 @@ PrefabInstance:
     - target: {fileID: 7156458649638725190, guid: 06532fad7d854414597be7b5574625a0,
         type: 3}
       propertyPath: divider
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7156458649638725190, guid: 06532fad7d854414597be7b5574625a0,
+        type: 3}
+      propertyPath: gridSizeDivider
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7156458649638725191, guid: 06532fad7d854414597be7b5574625a0,
@@ -449,10 +358,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2888098290608187499, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
-        type: 3}
+    - target: {fileID: 1234167693, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb, type: 3}
       propertyPath: m_Color.a
-      value: 1
+      value: 0.43529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 1234167693, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6792453
+      objectReference: {fileID: 0}
+    - target: {fileID: 1234167693, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6792453
+      objectReference: {fileID: 0}
+    - target: {fileID: 1234167693, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6792453
       objectReference: {fileID: 0}
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
@@ -461,34 +381,24 @@ PrefabInstance:
       objectReference: {fileID: 824099854}
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
-      propertyPath: standard.a
-      value: 0.2901961
+      propertyPath: defaultColor.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
       propertyPath: defaultColor.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
       propertyPath: defaultColor.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
       propertyPath: defaultColor.r
-      value: 0.4339623
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
-        type: 3}
-      propertyPath: brushSizeVisualizer
-      value: 
-      objectReference: {fileID: 1234167693}
-    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
-        type: 3}
-      propertyPath: cursorSpriteRenderer
-      value: 
-      objectReference: {fileID: 798839660}
     - target: {fileID: 8638884595387863053, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
       propertyPath: m_RootOrder
