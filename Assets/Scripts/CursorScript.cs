@@ -6,7 +6,7 @@ public class CursorScript : MonoBehaviour
     public GridManager grid;
     public Color standard;
     public Color over;
-    private Color paintColor = Color.cyan;
+    private Color paintColor = Color.black;
 
     private Camera cam;
     Vector3 mousePos = new Vector3();

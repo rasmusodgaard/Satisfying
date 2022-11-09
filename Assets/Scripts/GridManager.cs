@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -46,7 +47,7 @@ public class GridManager : MonoBehaviour
 
     private void DrawGrid()
     {
-        tileScripts = new TileScript[(int)gridSize.x, (int)gridSize.y];
+        tileScripts = new TileScript[Mathf.RoundToInt(gridSize.x), Mathf.RoundToInt((int)gridSize.y)];
         TileTransforms = new List<Transform>();
         for (int y = 0; y < gridSize.y; y++)
         {
@@ -70,13 +71,6 @@ public class GridManager : MonoBehaviour
         min = cam.ScreenToWorldPoint(Vector3.zero);
         max = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
 
-        //Isolating the corners
-        topRight = max + new Vector3(0, 0, 10);
-        topLeft = new Vector3(min.x, max.y, 0);
-        bottomLeft = min + new Vector3(0, 0, 10);
-        bottomRight = new Vector3(max.x, min.y, 0);
-
-
         sideLength = new Vector2(Mathf.Abs(max.x - min.x), Mathf.Abs(max.y - min.y));
         spriteSideLength = pixelPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
 
@@ -85,24 +79,26 @@ public class GridManager : MonoBehaviour
 
         double worldScreenHeight = cam.orthographicSize * 2.0;
         double worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
-        tileSize = (float)(worldScreenWidth / spriteSideLength) / gridSize.x;
-
-        print("Grid: " + gridSize);
+        tileSize = (float)Math.Round(0.0005 + (worldScreenWidth / spriteSideLength) / gridSize.x, 3);
+        print("Grid: " + gridSize + ". TileSize: " + tileSize);
     }
 
 
     void Update()
     {
-        //DrawBoundaries();
-
         if (Input.GetKeyDown(KeyCode.P))
         {
-            string date = System.DateTime.Now.ToString();
-            date = date.Replace("/", "-");
-            date = date.Replace(" ", "_");
-            date = date.Replace(":", "-");
-            ScreenCapture.CaptureScreenshot("Creations\\MasterPeace - " + date + ".png", 2);
+            TakeScreenShotOfImage();
         }
+    }
+
+    private static void TakeScreenShotOfImage()
+    {
+        string date = System.DateTime.Now.ToString();
+        date = date.Replace("/", "-");
+        date = date.Replace(" ", "_");
+        date = date.Replace(":", "-");
+        ScreenCapture.CaptureScreenshot("Creations\\MasterPeace - " + date + ".png", 2); // TODO: Handle image download from webbuild
     }
 
     public void OpenColorChanger()
@@ -138,22 +134,5 @@ public class GridManager : MonoBehaviour
             }
         }
         colorChangerOpen = false;
-    }
-
-    private void DrawBoundaries()
-    {
-        Debug.DrawLine(topLeft, topRight, Color.cyan);
-        Debug.DrawLine(topRight, bottomRight, Color.red);
-        Debug.DrawLine(bottomRight, bottomLeft, Color.magenta);
-        Debug.DrawLine(bottomLeft, topLeft, Color.blue);
-
-    }
-
-    public TileScript GetTile(Vector3 cursorPos)
-    {
-        Vector3 pos = cam.WorldToScreenPoint(cursorPos) / divider;
-        Vector2Int pos2D = new Vector2Int(Mathf.FloorToInt(pos.x - (spriteSideLength / 2)), Mathf.FloorToInt(pos.y - (spriteSideLength / 2)));
-        print("Pos2D: " + pos2D);
-        return tileScripts[pos2D.x, pos2D.y];
     }
 }

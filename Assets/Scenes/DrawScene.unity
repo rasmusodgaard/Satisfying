@@ -348,8 +348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pixelPrefab: {fileID: 14198853272177510, guid: b8c0988f9c91348d398324b8f00382c4,
     type: 3}
-  divider: 15
-  colorChangerOpen: 0
+  divider: 10
 --- !u!4 &824099855
 Transform:
   m_ObjectHideFlags: 0
