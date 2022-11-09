@@ -89,11 +89,11 @@ public class CursorScript : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                brushes[(int)brush].Primary(mousePos, radius, paintColor);
+                brushes[(int)brush].Primary(mousePos, radius, paintColor, grid.TileTransforms);
             }
             else if (Input.GetMouseButton(1))
             {
-                brushes[(int)brush].Secondary(mousePos, radius, paintColor);
+                brushes[(int)brush].Secondary(mousePos, radius, paintColor, grid.TileTransforms);
             }
         }
 
@@ -143,13 +143,13 @@ public class CursorScript : MonoBehaviour
         }
 
         //Open and close color changer
-        if (colorChangerOn && !grid.colorChangerOpen)
+        if (colorChangerOn && !grid.ColorChangerOpen)
         {
             grid.OpenColorChanger();
             //brush = BrushEnum.colorChanger;
             brush = BrushEnum.standard;
         }
-        else if (!colorChangerOn && grid.colorChangerOpen)
+        else if (!colorChangerOn && grid.ColorChangerOpen)
         {
             grid.CloseColorChanger();
             brush = tempBrush;

@@ -1,26 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Brush_Turn", menuName = "ScriptableObjects/Brush_Turn", order = 1)]
 public class Brush_Turn : Brush_Base
 {
-    public override void Primary(Vector3 _mousePosition, float _radius, Color _paintColor)
+    public override void Primary(Vector3 mousePosition, float radius, Color paintColor, List<Transform> tileTransforms)
     {
-        OverlapCircleResults results = GetPixels(_mousePosition, _radius);
-        for (int i = 0; i < results.count; i++)
+        List<Transform> results = GetTilePixels(mousePosition, radius, tileTransforms);
+        for (int i = 0; i < results.Count; i++)
         {
-            results.colliders[i].transform.LookAt(_mousePosition);
+            results[i].LookAt(mousePosition);
         }
 
     }
 
-    public override void Secondary(Vector3 _mousePosition, float _radius, Color _paintColor)
+    public override void Secondary(Vector3 mousePosition, float radius, Color paintColor, List<Transform> tileTransforms)
     {
-        OverlapCircleResults results = GetPixels(_mousePosition, _radius);
-        for (int i = 0; i < results.count; i++)
+        List<Transform> results = GetTilePixels(mousePosition, radius, tileTransforms);
+        for (int i = 0; i < results.Count; i++)
         {
-            results.colliders[i].transform.rotation = Quaternion.identity;
+            results[i].rotation = Quaternion.identity;
         }
     }
 }

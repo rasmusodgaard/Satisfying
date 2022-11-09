@@ -1,43 +1,41 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "Brush_Magnet", menuName = "ScriptableObjects/Brush_Magnet", order = 1)]
 public class Brush_Magnet : Brush_Base
 {
     public float magnetSpeed = 1;
     public float pushSpeedMultiplier = 2;
-    public float minSqDist = 5;
-    public float maxSqDist = 75;
+    public float minSqrDistance = 5;
+    public float maxSqrDistance = 75;
 
-
-    public override void Primary(Vector3 _mousePosition, float _radius, Color _paintColor)
+    public override void Primary(Vector3 mousePosition, float radius, Color _paintColor, List<Transform> tiles)
     {
-
-        OverlapCircleResults results = GetPixels(_mousePosition, _radius);
-
-        for (int i = 0; i < results.count; i++)
+        float sqrRadius = radius * radius;
+        for (int i = 0; i < tiles.Count; i++)
         {
-            float sqDist = Vector3.SqrMagnitude(_mousePosition - results.colliders[i].transform.position);
-            if (sqDist > minSqDist)
+            Vector3 velocity = tiles[i].transform.position - mousePosition;
+            float sqrDistance = Vector2.SqrMagnitude(velocity);
+            if (sqrDistance <= sqrRadius)
             {
-                Vector2 direction = ((_mousePosition - results.colliders[i].transform.position).normalized);
-                //results.colliders[i].transform.position += (Vector3)direction * magnetSpeed * Time.deltaTime;
-                var rigidbody = results.colliders[i].attachedRigidbody;
-                rigidbody.MovePosition(rigidbody.position + direction * magnetSpeed * Time.deltaTime); // TODO: Check to make sure which is faster rigidbody or syncTransform
+                Vector2 direction = (mousePosition - tiles[i].position).normalized;
+                tiles[i].position += (Vector3)direction * magnetSpeed * Time.deltaTime;
             }
-
         }
     }
 
-    public override void Secondary(Vector3 _mousePosition, float _radius, Color _paintColor)
+    public override void Secondary(Vector3 mousePosition, float radius, Color paintColor, List<Transform> tiles)
     {
-        OverlapCircleResults results = GetPixels(_mousePosition, _radius);
-        for (int i = 0; i < results.count; i++)
+        float sqrRadius = radius * radius;
+        for (int i = 0; i < tiles.Count; i++)
         {
-            float sqDist = Vector3.SqrMagnitude(_mousePosition - results.colliders[i].transform.position);
-
-            Vector2 direction = (_mousePosition - results.colliders[i].transform.position).normalized;
-            results.colliders[i].transform.position += -(Vector3)direction * magnetSpeed * pushSpeedMultiplier * Time.deltaTime;
-
+            Vector2 velocity = tiles[i].transform.position - mousePosition;
+            float sqrDistance = Vector2.SqrMagnitude(velocity);
+            if (sqrDistance <= sqrRadius)
+            {
+                Vector2 direction = (mousePosition - tiles[i].position).normalized;
+                tiles[i].position += (Vector3)(-direction) * magnetSpeed * Time.deltaTime;
+            }
         }
     }
 }

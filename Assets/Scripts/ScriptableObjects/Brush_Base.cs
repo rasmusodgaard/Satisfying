@@ -1,26 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Brush_Base : ScriptableObject
 {
-    public virtual void Primary(Vector3 _mousePosition, float _radius, Color _paintColor) { }
+    public virtual void Primary(Vector3 mousePosition, float radius, Color _paintColor, List<Transform> tiles) { }
 
-    public virtual void Secondary(Vector3 _mousePosition, float _radius, Color _paintColor) { }
+    public virtual void Secondary(Vector3 mousePosition, float radius, Color _paintColor, List<Transform> tiles) { }
 
-
-    protected OverlapCircleResults GetPixels(Vector3 _mousePosition, float _radius)
+    public List<Transform> GetTilePixels(Vector2 mousePosition, float radius, List<Transform> tiles)
     {
-        OverlapCircleResults results = new OverlapCircleResults();
-        results.colliders = new Collider2D[10000];
-        results.count = Physics2D.OverlapCircleNonAlloc(_mousePosition, _radius, results.colliders);
-        return results;
+        List<Transform> output = new List<Transform>();
+        float sqrRadius = radius * radius;
+        for (int i = 0; i < tiles.Count; i++)
+        {
+            Vector2 velocity = (Vector2)tiles[i].position - mousePosition;
+            float sqrDistance = Vector2.SqrMagnitude(velocity);
+            if (sqrDistance <= sqrRadius)
+            {
+                output.Add(tiles[i]);
+            }
+        }
+        return output;
     }
-
-}
-
-public struct OverlapCircleResults
-{
-    public int count;
-    public Collider2D[] colliders;
 }

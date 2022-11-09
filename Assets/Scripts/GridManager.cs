@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
@@ -8,12 +9,14 @@ public class GridManager : MonoBehaviour
 
     public GameObject pixelPrefab;
     public int divider = 32;
-    public bool colorChangerOpen = false;
+    public bool ColorChangerOpen { get => colorChangerOpen; private set => colorChangerOpen = value; }
+    public List<Transform> TileTransforms { get; private set; }
 
     //----------------------------------------------//
     //                   private                    //
     //----------------------------------------------//
 
+    private bool colorChangerOpen = false;
     private Vector3 min;
     private Vector3 max;
     private Vector3 topLeft, topRight, bottomLeft, bottomRight;
@@ -29,6 +32,7 @@ public class GridManager : MonoBehaviour
 
     private Camera cam;
 
+
     void Awake()
     {
         cam = Camera.main;
@@ -43,6 +47,7 @@ public class GridManager : MonoBehaviour
     private void DrawGrid()
     {
         tileScripts = new TileScript[(int)gridSize.x, (int)gridSize.y];
+        TileTransforms = new List<Transform>();
         for (int y = 0; y < gridSize.y; y++)
         {
             for (int x = 0; x < gridSize.x; x++)
@@ -54,6 +59,7 @@ public class GridManager : MonoBehaviour
                 clone.transform.localScale = Vector2.one * tileSize;
                 clone.transform.parent = this.transform;
                 tileScripts[x, y] = clone.GetComponent<TileScript>();
+                TileTransforms.Add(clone.transform);
             }
         }
     }
