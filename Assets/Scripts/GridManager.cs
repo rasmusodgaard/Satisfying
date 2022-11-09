@@ -21,13 +21,14 @@ public class GridManager : MonoBehaviour
     //                   private                    //
     //----------------------------------------------//
 
+    Color defaultColor = Color.gray;
+
     private bool colorChangerOpen = false;
     private Vector3 screenWorldspaceMin;
     private Vector3 screenWorldspaceMax;
-    private Vector3 topLeft, topRight, bottomLeft, bottomRight;
 
     private Vector2 gridSize;
-    private Vector2 sideLength;
+    private Vector2 sideLengths;
 
     private float spriteSideLength;
     private TileScript[,] tileScripts;
@@ -49,6 +50,7 @@ public class GridManager : MonoBehaviour
         DrawGrid();
     }
 
+    // TODO: Make asynchronous solution
     private void DrawGrid()
     {
         tileScripts = new TileScript[Mathf.RoundToInt(gridSize.x), Mathf.RoundToInt((int)gridSize.y)];
@@ -58,12 +60,15 @@ public class GridManager : MonoBehaviour
             for (int x = 0; x < gridSize.x; x++)
             {
                 GameObject clone = Instantiate(pixelPrefab,
-                                               new Vector3(screenWorldspaceMin.x + (sideLength.x / gridSize.x * 0.5f) + (sideLength.x / gridSize.x * x),
-                                                           screenWorldspaceMin.y + (sideLength.y / gridSize.y * 0.5f) + (sideLength.y / gridSize.y * y), 0),
+                                               new Vector3(screenWorldspaceMin.x + (sideLengths.x / gridSize.x * 0.5f) + (sideLengths.x / gridSize.x * x),
+                                                           screenWorldspaceMin.y + (sideLengths.y / gridSize.y * 0.5f) + (sideLengths.y / gridSize.y * y), 0),
                                                Quaternion.identity);
                 clone.transform.localScale = Vector2.one * tileSize;
                 clone.transform.parent = this.transform;
-                tileScripts[x, y] = clone.GetComponent<TileScript>();
+                TileScript cloneTile = clone.GetComponent<TileScript>();
+                cloneTile.Init();
+                cloneTile.ColorTile(defaultColor);
+                tileScripts[x, y] = cloneTile;
                 TileTransforms.Add(clone.transform);
             }
         }
@@ -71,11 +76,10 @@ public class GridManager : MonoBehaviour
 
     private void GetScreenInfo()
     {
-        //Get min and max points of screen
         screenWorldspaceMin = cam.ScreenToWorldPoint(Vector3.zero);
         screenWorldspaceMax = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
 
-        sideLength = new Vector2(Mathf.Abs(screenWorldspaceMax.x - screenWorldspaceMin.x), Mathf.Abs(screenWorldspaceMax.y - screenWorldspaceMin.y));
+        sideLengths = new Vector2(Mathf.Abs(screenWorldspaceMax.x - screenWorldspaceMin.x), Mathf.Abs(screenWorldspaceMax.y - screenWorldspaceMin.y));
         spriteSideLength = pixelPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
 
         gridSize = new Vector2(Screen.width / divider, Screen.height / divider);
@@ -90,7 +94,7 @@ public class GridManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
         {
             TakeScreenShotOfImage();
         }

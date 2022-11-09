@@ -1,17 +1,20 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CursorScript : MonoBehaviour
 {
     public GridManager grid;
-    public Color standard;
+    public Color defaultColor = Color.gray;
     public Color over;
     private Color paintColor = Color.black;
 
     private Camera cam;
     Vector3 mousePos = new Vector3();
-    private SpriteRenderer cursorSprite;
 
+    [SerializeField]
+    private SpriteRenderer cursorSpriteRenderer;
+
+    [SerializeField]
+    private SpriteRenderer brushSizeVisualizer;
     //---------------------------------------------------//
     //Brush general
     //---------------------------------------------------//
@@ -41,7 +44,6 @@ public class CursorScript : MonoBehaviour
     //---------------------------------------------------//
     //  MagnetBrush
     //---------------------------------------------------//
-    private List<Collider2D> magnetResults;
     public float magnetSpeed = 1;
     public float minSqDist = 5;
     public float maxSqDist = 75;
@@ -53,9 +55,9 @@ public class CursorScript : MonoBehaviour
         Cursor.visible = false;
         this.transform.position = cam.ScreenToWorldPoint(Input.mousePosition);
         brush = BrushEnum.standard;
-        magnetResults = new List<Collider2D>();
         Camera.main.backgroundColor = Color.black;
-        cursorSprite = GetComponentInChildren<SpriteRenderer>();
+        print("Brush size: " + brushSizeVisualizer.bounds.extents);
+        brushSizeVisualizer.transform.localScale = Vector3.one * radius * 2;
     }
 
     void Update()
@@ -102,6 +104,7 @@ public class CursorScript : MonoBehaviour
         {
             radius += Input.mouseScrollDelta.y / radiusDivider;
             radius = Mathf.Clamp(radius, 0.05f, 3);
+            brushSizeVisualizer.transform.localScale = Vector3.one * radius * 2;
         }
     }
 
@@ -178,7 +181,7 @@ public class CursorScript : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 paintColor = newColor;
-                cursorSprite.color = newColor;
+                cursorSpriteRenderer.color = newColor;
             }
             else if (Input.GetMouseButtonDown(1))
             {

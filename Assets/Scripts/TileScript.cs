@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TileScript : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
 
-    void Start()
+    public void Init()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
