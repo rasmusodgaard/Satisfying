@@ -157,7 +157,10 @@ public class CursorScript : MonoBehaviour
         }
     }
 
-    public void Test() { }
+    public void SwitchBrush(BrushBase brush)
+    {
+        activeBrush = brush;
+    }
 
     private void ColorChangerUpdate(Vector3 mousePos)
     {
