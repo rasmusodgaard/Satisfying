@@ -574,6 +574,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 606138134}
   m_CullTransparentMesh: 1
+--- !u!1 &647877665 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8638884595387863055, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 8638884595661911554}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &824099854 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7156458649638725190, guid: 06532fad7d854414597be7b5574625a0,
@@ -817,7 +823,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1249801256}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 647877665}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1249801256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1463,6 +1481,12 @@ PrefabInstance:
       propertyPath: defaultColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
     - target: {fileID: 8638884595387863053, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
       propertyPath: m_RootOrder

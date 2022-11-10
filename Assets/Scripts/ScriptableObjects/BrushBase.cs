@@ -6,6 +6,8 @@ public abstract class BrushBase : ScriptableObject
     [SerializeField]
     BrushEnum brushType;
 
+    public BrushEnum BrushType => brushType;
+
     public virtual void Primary(Vector3 mousePosition, float radius, Color _paintColor, List<Transform> tiles) { }
 
     public virtual void Secondary(Vector3 mousePosition, float radius, Color _paintColor, List<Transform> tiles) { }

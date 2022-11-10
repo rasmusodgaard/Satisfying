@@ -5,37 +5,39 @@ using UnityEngine.EventSystems;
 public class CursorScript : MonoBehaviour
 {
     public GridManager grid;
-    public Color defaultColor = Color.gray;
-    private Color paintColor = Color.black;
-
-    private Camera cam;
-    Vector3 mousePos = new Vector3();
 
     [SerializeField]
-    private SpriteRenderer cursorSpriteRenderer;
+    Color defaultTileColor = Color.gray;
 
     [SerializeField]
-    private SpriteRenderer brushSizeVisualizer;
+    Color defaultBackgroundColor = Color.white;
+
+    Color paintColor = Color.black;
+
+    Camera cam;
+    Vector3 mousePosition = new Vector3();
+
+    [SerializeField]
+    SpriteRenderer cursorSpriteRenderer;
+
+    [SerializeField]
+    SpriteRenderer brushSizeVisualizer;
     //---------------------------------------------------//
     //Brush general
     //---------------------------------------------------//
+    [SerializeField]
     Dictionary<BrushEnum, BrushBase> brushDictionary = new Dictionary<BrushEnum, BrushBase>();
+    BrushBase activeBrush;
 
-    private BrushEnum brush = new BrushEnum();
-    private BrushEnum lastBrush = new BrushEnum();
-    private BrushEnum tempBrush = new BrushEnum();
-
-    private float brushRadius = 0.1f;
+    [SerializeField]
+    float brushRadius = 0.25f;
     public BrushBase[] brushes;
     public float radiusDivider = 100;
-
-    float brushVisializationTargetAlpha = 100;
 
     //---------------------------------------------------//
     //  ColorPicker
     //---------------------------------------------------//
-    private bool colorChangerOn = false;
-
+    //bool colorChangerOn = false;
 
     //---------------------------------------------------//
     //  MagnetBrush
@@ -49,32 +51,34 @@ public class CursorScript : MonoBehaviour
     {
         cam = Camera.main;
         Cursor.visible = false;
-        this.transform.position = cam.ScreenToWorldPoint(Input.mousePosition);
-        brush = BrushEnum.standard;
+        transform.position = cam.ScreenToWorldPoint(Input.mousePosition);
         Camera.main.backgroundColor = Color.black;
         brushSizeVisualizer.transform.localScale = Vector3.one * brushRadius * 2;
+        SetupBrushDisctionary();
+        SwitchBrush(BrushEnum.standard);
+    }
+
+    private void SetupBrushDisctionary()
+    {
+        foreach (BrushBase brush in brushes)
+        {
+            brushDictionary.Add(brush.BrushType, brush);
+        }
     }
 
     void Update()
     {
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = mousePos;
+        mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = mousePosition;
 
         CheckForBrushSizeChanges();
-        SwitchBrush();
+        CheckForHotkeys();
+        Paint();
     }
 
-    void LateUpdate()
+    private void Paint()
     {
-        //Make sure that a brush that is not in the brushes array is not selected
-        if ((int)brush >= brushes.Length)
-        {
-            print("Out of bounds brush selection");
-            return;
-        }
-
-        // General brush behaviour
-        if (!colorChangerOn)
+        if (grid.ColorChangerOpen == false)
         {
             if (EventSystem.current.IsPointerOverGameObject())
             {
@@ -83,18 +87,50 @@ public class CursorScript : MonoBehaviour
 
             if (Input.GetMouseButton(0))
             {
-                brushes[(int)brush].Primary(mousePos, brushRadius, paintColor, grid.TileTransforms);
+                //brushes[(int)brush].Primary(mousePos, brushRadius, paintColor, grid.TileTransforms);
+                activeBrush.Primary(mousePosition, brushRadius, paintColor, grid.TileTransforms);
             }
             else if (Input.GetMouseButton(1))
             {
-                brushes[(int)brush].Secondary(mousePos, brushRadius, paintColor, grid.TileTransforms);
+                //brushes[(int)brush].Secondary(mousePos, brushRadius, paintColor, grid.TileTransforms);
+                activeBrush.Secondary(mousePosition, brushRadius, paintColor, grid.TileTransforms);
             }
         }
-
-        // Seperate logic for color changer
-        else if (colorChangerOn)
+        else
         {
-            ColorChangerUpdate(mousePos);
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+
+            ColorChangerUpdate(mousePosition);
+        }
+    }
+
+    private void CheckForHotkeys()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (!grid.ColorChangerOpen)
+            {
+                grid.OpenColorChanger();
+            }
+            else
+            {
+                grid.CloseColorChanger();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.B))
+        {
+            SwitchBrush(BrushEnum.standard);
+        }
+        else if (Input.GetKeyDown(KeyCode.M))
+        {
+            SwitchBrush(BrushEnum.magnet);
+        }
+        else if (Input.GetKeyDown(KeyCode.T))
+        {
+            SwitchBrush(BrushEnum.turn);
         }
     }
 
@@ -111,54 +147,17 @@ public class CursorScript : MonoBehaviour
 
     public void SwitchBrush(BrushEnum brush)
     {
-
-    }
-
-    private void SwitchBrush()
-    {
-        lastBrush = brush;
-
-        if (Input.GetKeyDown(KeyCode.C))
+        if (brushDictionary.TryGetValue(brush, out BrushBase value))
         {
-            if (!colorChangerOn)
-            {
-                tempBrush = lastBrush;
-            }
-            colorChangerOn = !colorChangerOn;
+            activeBrush = value;
         }
-        else if (Input.GetKeyDown(KeyCode.B))
+        else
         {
-            brush = BrushEnum.standard;
-        }
-        else if (Input.GetKeyDown(KeyCode.M))
-        {
-            brush = BrushEnum.magnet;
-        }
-        else if (Input.GetKeyDown(KeyCode.T))
-        {
-            brush = BrushEnum.turn;
-        }
-
-        // TODO: Make change to color changer code easier to read
-        //Open and close color changer
-        if (colorChangerOn && !grid.ColorChangerOpen)
-        {
-            grid.OpenColorChanger();
-            //brush = BrushEnum.colorChanger;
-            brush = BrushEnum.standard;
-        }
-        else if (!colorChangerOn && grid.ColorChangerOpen)
-        {
-            grid.CloseColorChanger();
-            brush = tempBrush;
-        }
-
-        if (brush != lastBrush)
-        {
-            print("Changed to: " + brush);
+            Debug.LogError("No such brush found");
         }
     }
 
+    public void Test() { }
 
     private void ColorChangerUpdate(Vector3 mousePos)
     {
