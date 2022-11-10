@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b564bcc7678f4b9b8b809968b4bfa05, type: 3}
   m_Name: Brush_Turn
   m_EditorClassIdentifier: 
+  brushType: 2

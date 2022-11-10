@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CursorScript : MonoBehaviour
 {
@@ -17,17 +19,14 @@ public class CursorScript : MonoBehaviour
     //---------------------------------------------------//
     //Brush general
     //---------------------------------------------------//
-    private enum BrushEnum
-    {
-        standard, magnet, turn, colorChanger
-    }
+    Dictionary<BrushEnum, BrushBase> brushDictionary = new Dictionary<BrushEnum, BrushBase>();
 
     private BrushEnum brush = new BrushEnum();
     private BrushEnum lastBrush = new BrushEnum();
     private BrushEnum tempBrush = new BrushEnum();
 
     private float brushRadius = 0.1f;
-    public Brush_Base[] brushes;
+    public BrushBase[] brushes;
     public float radiusDivider = 100;
 
     float brushVisializationTargetAlpha = 100;
@@ -61,7 +60,7 @@ public class CursorScript : MonoBehaviour
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         transform.position = mousePos;
 
-        BrushSize();
+        CheckForBrushSizeChanges();
         SwitchBrush();
     }
 
@@ -77,6 +76,11 @@ public class CursorScript : MonoBehaviour
         // General brush behaviour
         if (!colorChangerOn)
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+
             if (Input.GetMouseButton(0))
             {
                 brushes[(int)brush].Primary(mousePos, brushRadius, paintColor, grid.TileTransforms);
@@ -95,7 +99,7 @@ public class CursorScript : MonoBehaviour
     }
 
     // TODO: Fade brush size visualizer in when changed and out when not
-    private void BrushSize()
+    private void CheckForBrushSizeChanges()
     {
         if (!Mathf.Approximately(0, Input.mouseScrollDelta.y))
         {
@@ -103,6 +107,11 @@ public class CursorScript : MonoBehaviour
             brushRadius = Mathf.Clamp(brushRadius, 0.05f, 3);
             brushSizeVisualizer.transform.localScale = Vector3.one * brushRadius * 2;
         }
+    }
+
+    public void SwitchBrush(BrushEnum brush)
+    {
+
     }
 
     private void SwitchBrush()
@@ -148,7 +157,6 @@ public class CursorScript : MonoBehaviour
         {
             print("Changed to: " + brush);
         }
-
     }
 
 

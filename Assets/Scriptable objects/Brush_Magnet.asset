@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac6cb6703a3f4c52b7ab7005e794d87, type: 3}
   m_Name: Brush_Magnet
   m_EditorClassIdentifier: 
+  brushType: 1
   magnetSpeed: 3
   pushSpeedMultiplier: 2
-  minSqDist: 5
-  maxSqDist: 100
+  minSqrDistance: 5
+  maxSqrDistance: 75

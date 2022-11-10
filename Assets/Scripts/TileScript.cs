@@ -9,16 +9,6 @@ public class TileScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // void OnMouseEnter()
-    // {
-    //     spriteRenderer.color = Color.gray;
-    // }
-
-    // void OnMouseExit()
-    // {
-    //     spriteRenderer.color = Color.white;
-    // }
-
     public bool ColorTile(Color color)
     {
         if (spriteRenderer.color == color)
