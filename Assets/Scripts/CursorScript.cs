@@ -3,8 +3,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class CursorScript : MonoBehaviour
-{
-    public GridManager grid;
+{ // TODO: Clean up inspector workflow
+    [SerializeField]
+    GridManager grid;
+
+    [SerializeField]
+    SpriteRenderer cursorSpriteRenderer;
+
+    [SerializeField]
+    SpriteRenderer brushSizeVisualizer;
 
     [SerializeField]
     Color defaultTileColor = Color.gray;
@@ -12,53 +19,48 @@ public class CursorScript : MonoBehaviour
     [SerializeField]
     Color defaultBackgroundColor = Color.white;
 
-    Color paintColor = Color.black;
+    [SerializeField]
+    Color defaultPaintColor = Color.black;
+
+    [SerializeField]
+    float alphaFadeScalar;
+
+    [SerializeField]
+    [Range(0f, 1f)]
+    float brushSizeVisualizerAlpha;
+
+    [SerializeField]
+    float scrollDeltaDivider = 100;
+
+    [SerializeField]
+    float minBrushSize;
+
+    [SerializeField]
+    float maxBrushSize;
+
+    [SerializeField]
+    BrushBase[] brushes;
 
     Camera cam;
-    Vector3 mousePosition = new Vector3();
-
-    [SerializeField]
-    SpriteRenderer cursorSpriteRenderer;
-
-    [SerializeField]
-    SpriteRenderer brushSizeVisualizer;
-    //---------------------------------------------------//
-    //Brush general
-    //---------------------------------------------------//
-    [SerializeField]
-    Dictionary<BrushEnum, BrushBase> brushDictionary = new Dictionary<BrushEnum, BrushBase>();
+    Color paintColor;
+    Vector3 mousePosition;
     BrushBase activeBrush;
-
-    [SerializeField]
+    Dictionary<BrushEnum, BrushBase> brushDictionary = new Dictionary<BrushEnum, BrushBase>();
     float brushRadius = 0.25f;
-    public BrushBase[] brushes;
-    public float radiusDivider = 100;
-
-    //---------------------------------------------------//
-    //  ColorPicker
-    //---------------------------------------------------//
-    //bool colorChangerOn = false;
-
-    //---------------------------------------------------//
-    //  MagnetBrush
-    //---------------------------------------------------//
-    public float magnetSpeed = 1;
-    public float minSqDist = 5;
-    public float maxSqDist = 75;
 
 
-    void Start()
+    void Awake()
     {
         cam = Camera.main;
         Cursor.visible = false;
-        transform.position = cam.ScreenToWorldPoint(Input.mousePosition);
         Camera.main.backgroundColor = Color.black;
         brushSizeVisualizer.transform.localScale = Vector3.one * brushRadius * 2;
-        SetupBrushDisctionary();
+
+        SetupBrushDictionary();
         SwitchBrush(BrushEnum.standard);
     }
 
-    private void SetupBrushDisctionary()
+    private void SetupBrushDictionary()
     {
         foreach (BrushBase brush in brushes)
         {
@@ -139,10 +141,37 @@ public class CursorScript : MonoBehaviour
     {
         if (!Mathf.Approximately(0, Input.mouseScrollDelta.y))
         {
-            brushRadius += Input.mouseScrollDelta.y / radiusDivider; // TODO: Make time dependant instead of mouse scroll delta
-            brushRadius = Mathf.Clamp(brushRadius, 0.05f, 3);
+            brushRadius += Input.mouseScrollDelta.y / scrollDeltaDivider; // TODO: Make time dependant instead of mouse scroll delta
+            brushRadius = Mathf.Clamp(brushRadius, minBrushSize, maxBrushSize);
             brushSizeVisualizer.transform.localScale = Vector3.one * brushRadius * 2;
+            AdjustBrushSizeVisualizer(true);
         }
+        else
+        {
+            AdjustBrushSizeVisualizer(false);
+        }
+    }
+
+    private void AdjustBrushSizeVisualizer(bool isIncreasingAlpha)
+    {
+        float targetAlpha = (isIncreasingAlpha) ? brushSizeVisualizerAlpha : 0.0f;
+
+        if (Mathf.Approximately(brushSizeVisualizer.color.a, targetAlpha))
+        {
+            return;
+        }
+
+        Color color = brushSizeVisualizer.color;
+        color = GetNewAlphaAdjustedColor(isIncreasingAlpha, color);
+        brushSizeVisualizer.color = color;
+    }
+
+    private Color GetNewAlphaAdjustedColor(bool isIncreasingAlpha, Color color)
+    {
+        float alphaDelta = (isIncreasingAlpha) ? Time.deltaTime * alphaFadeScalar : Time.deltaTime * -alphaFadeScalar;
+        float alphaStep = Mathf.Clamp(color.a + alphaDelta, 0.0f, brushSizeVisualizerAlpha);
+        color.a = alphaStep;
+        return color;
     }
 
     public void SwitchBrush(BrushEnum brush)

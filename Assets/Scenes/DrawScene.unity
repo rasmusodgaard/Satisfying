@@ -671,6 +671,21 @@ PrefabInstance:
       objectReference: {fileID: 824099854}
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
+      propertyPath: alphaScalar
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: maxBrushSize
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: minBrushSize
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
       propertyPath: defaultColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -688,6 +703,16 @@ PrefabInstance:
         type: 3}
       propertyPath: defaultColor.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: alphaFadeScalar
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: brushSizeVisualizerAlpha
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}

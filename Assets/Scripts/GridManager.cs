@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,6 +39,8 @@ public class GridManager : MonoBehaviour
 
     private Camera cam;
 
+    [ShowInInspector, ReadOnly]
+    float tileCount;
 
     void Awake()
     {
@@ -48,6 +51,7 @@ public class GridManager : MonoBehaviour
     {
         GetScreenInfo();
         DrawGrid();
+        tileCount = gridSize.x * gridSize.y;
     }
 
     // TODO: Make asynchronous solution
@@ -88,7 +92,6 @@ public class GridManager : MonoBehaviour
         double worldScreenHeight = cam.orthographicSize * 2.0;
         double worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
         tileSize = (float)Math.Round(0.005 + (worldScreenWidth / spriteSideLength) / gridSize.x, 2);
-        print("Grid: " + gridSize + ". TileSize: " + tileSize);
     }
 
 
