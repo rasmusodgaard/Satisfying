@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class CursorScript : MonoBehaviour
-{ // TODO: Clean up inspector workflow
+{ // TODO: Clean up inspector workflow with tool tips and custom editor drawers
     [SerializeField]
     GridManager grid;
 
@@ -30,7 +30,14 @@ public class CursorScript : MonoBehaviour
     float brushSizeVisualizerAlpha;
 
     [SerializeField]
-    float scrollDeltaDivider = 100;
+    float scrollDeltaScalar = 100;
+
+    [SerializeField]
+    float brushRadiusStep;
+
+    [SerializeField]
+    float brushChangeFadeDelay;
+    float brushChangeDelayTemp;
 
     [SerializeField]
     float minBrushSize;
@@ -47,7 +54,6 @@ public class CursorScript : MonoBehaviour
     BrushBase activeBrush;
     Dictionary<BrushEnum, BrushBase> brushDictionary = new Dictionary<BrushEnum, BrushBase>();
     float brushRadius = 0.25f;
-
 
     void Awake()
     {
@@ -139,39 +145,47 @@ public class CursorScript : MonoBehaviour
     // TODO: Fade brush size visualizer in when changed and out when not
     private void CheckForBrushSizeChanges()
     {
-        if (!Mathf.Approximately(0, Input.mouseScrollDelta.y))
+        float scaledScrollDelta = Input.mouseScrollDelta.y * scrollDeltaScalar;
+        if (!Mathf.Approximately(0, scaledScrollDelta))
         {
-            brushRadius += Input.mouseScrollDelta.y / scrollDeltaDivider; // TODO: Make time dependant instead of mouse scroll delta
+            brushRadius += (scaledScrollDelta > 0) ? brushRadiusStep * Time.deltaTime : -brushRadiusStep * Time.deltaTime;
             brushRadius = Mathf.Clamp(brushRadius, minBrushSize, maxBrushSize);
             brushSizeVisualizer.transform.localScale = Vector3.one * brushRadius * 2;
-            AdjustBrushSizeVisualizer(true);
+            brushChangeDelayTemp = brushChangeFadeDelay;
+            AdjustBrushSizeVisualizerAlpha(true);
         }
         else
         {
-            AdjustBrushSizeVisualizer(false);
+            if (brushChangeDelayTemp <= 0)
+            {
+                AdjustBrushSizeVisualizerAlpha(false);
+            }
+            else
+            {
+                brushChangeDelayTemp -= Time.deltaTime;
+            }
         }
     }
 
-    private void AdjustBrushSizeVisualizer(bool isIncreasingAlpha)
+    private void AdjustBrushSizeVisualizerAlpha(bool isIncreasingAlpha)
     {
-        float targetAlpha = (isIncreasingAlpha) ? brushSizeVisualizerAlpha : 0.0f;
-
-        if (Mathf.Approximately(brushSizeVisualizer.color.a, targetAlpha))
+        if (isIncreasingAlpha)
         {
-            return;
+            Color tempColor = brushSizeVisualizer.color;
+            tempColor.a = brushSizeVisualizerAlpha;
+            brushSizeVisualizer.color = tempColor;
         }
+        else
+        {
+            if (Mathf.Approximately(brushSizeVisualizer.color.a, 0.0f))
+            {
+                return;
+            }
 
-        Color color = brushSizeVisualizer.color;
-        color = GetNewAlphaAdjustedColor(isIncreasingAlpha, color);
-        brushSizeVisualizer.color = color;
-    }
-
-    private Color GetNewAlphaAdjustedColor(bool isIncreasingAlpha, Color color)
-    {
-        float alphaDelta = (isIncreasingAlpha) ? Time.deltaTime * alphaFadeScalar : Time.deltaTime * -alphaFadeScalar;
-        float alphaStep = Mathf.Clamp(color.a + alphaDelta, 0.0f, brushSizeVisualizerAlpha);
-        color.a = alphaStep;
-        return color;
+            Color tempColor = brushSizeVisualizer.color;
+            tempColor.a = Mathf.Clamp(tempColor.a - alphaFadeScalar * Time.deltaTime, 0.0f, brushSizeVisualizerAlpha);
+            brushSizeVisualizer.color = tempColor;
+        }
     }
 
     public void SwitchBrush(BrushEnum brush)

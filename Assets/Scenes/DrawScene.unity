@@ -707,7 +707,17 @@ PrefabInstance:
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
       propertyPath: alphaFadeScalar
-      value: 1.5
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: brushRadiusStep
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: brushChangeFadeDelay
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
