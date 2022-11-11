@@ -6,6 +6,13 @@ public abstract class BrushBase : ScriptableObject
     [SerializeField]
     BrushEnum brushType;
 
+    [SerializeField]
+    Vector3 cursorRelativePosition;
+
+    public Sprite cursorIcon;
+
+    public Vector3 CursorRelativePosition => cursorRelativePosition;
+
     public BrushEnum BrushType => brushType;
 
     public virtual void Primary(Vector3 mousePosition, float radius, Color _paintColor, List<Transform> tiles) { }

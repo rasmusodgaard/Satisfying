@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -193,6 +194,7 @@ public class CursorScript : MonoBehaviour
         if (brushDictionary.TryGetValue(brush, out BrushBase value))
         {
             activeBrush = value;
+            ChangeBrushCursor(value);
         }
         else
         {
@@ -200,9 +202,16 @@ public class CursorScript : MonoBehaviour
         }
     }
 
+    private void ChangeBrushCursor(BrushBase value)
+    {
+        cursorSpriteRenderer.sprite = value.cursorIcon;
+        cursorSpriteRenderer.transform.localPosition = value.CursorRelativePosition;
+    }
+
     public void SwitchBrush(BrushBase brush)
     {
         activeBrush = brush;
+        ChangeBrushCursor(brush);
     }
 
     private void ColorChangerUpdate(Vector3 mousePos)

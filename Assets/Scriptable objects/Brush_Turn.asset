@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Brush_Turn
   m_EditorClassIdentifier: 
   brushType: 2
+  cursorRelativePosition: {x: 0, y: 0, z: 0}
+  cursorIcon: {fileID: 21300000, guid: 37f06afdba45ce147ab34c42c458dd16, type: 3}
