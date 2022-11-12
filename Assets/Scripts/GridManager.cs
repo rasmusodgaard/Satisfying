@@ -70,8 +70,7 @@ public class GridManager : MonoBehaviour
                 clone.transform.localScale = Vector2.one * tileSize;
                 clone.transform.parent = this.transform;
                 TileScript cloneTile = clone.GetComponent<TileScript>();
-                cloneTile.Init();
-                cloneTile.ColorTile(defaultColor);
+                cloneTile.Init(defaultColor);
                 tileScripts[x, y] = cloneTile;
                 TileTransforms.Add(clone.transform);
             }

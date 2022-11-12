@@ -141,9 +141,13 @@ public class CursorScript : MonoBehaviour
         {
             SwitchBrush(BrushEnum.turn);
         }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            SwitchBrush(BrushEnum.reset);
+        }
     }
 
-    // TODO: Fade brush size visualizer in when changed and out when not
+    // TODO: Fix bug with wrong visualizer size after making cursor smaller
     private void CheckForBrushSizeChanges()
     {
         float scaledScrollDelta = Input.mouseScrollDelta.y * scrollDeltaScalar;

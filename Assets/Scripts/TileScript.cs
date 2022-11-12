@@ -2,11 +2,27 @@
 
 public class TileScript : MonoBehaviour
 {
-    private SpriteRenderer spriteRenderer;
+    SpriteRenderer spriteRenderer;
+    Color initColor;
+    Vector3 initPosition;
 
-    public void Init()
+    public void Init(Color defaultColor)
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        initColor = defaultColor;
+        initPosition = transform.localPosition;
+
+    }
+
+    public void ResetTransform()
+    {
+        transform.position = initPosition;
+        transform.rotation = Quaternion.identity;
+    }
+
+    public void ResetColor()
+    {
+        ColorTile(initColor);
     }
 
     public bool ColorTile(Color color)
