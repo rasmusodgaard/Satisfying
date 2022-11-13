@@ -68,7 +68,7 @@ public class GridManager : MonoBehaviour
                                                            screenWorldspaceMin.y + (sideLengths.y / gridSize.y * 0.5f) + (sideLengths.y / gridSize.y * y), 0),
                                                Quaternion.identity);
                 clone.transform.localScale = Vector2.one * tileSize;
-                clone.transform.parent = this.transform;
+                clone.transform.parent = transform;
                 TileScript cloneTile = clone.GetComponent<TileScript>();
                 cloneTile.Init(defaultColor);
                 tileScripts[x, y] = cloneTile;

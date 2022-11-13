@@ -10,8 +10,8 @@ public class TileScript : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         initColor = defaultColor;
+        ColorTile(defaultColor);
         initPosition = transform.localPosition;
-
     }
 
     public void ResetTransform()

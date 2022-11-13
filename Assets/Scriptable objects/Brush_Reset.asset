@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fc9ddc35afe89d43b1b973877d6c674, type: 3}
-  m_Name: ResetBrush
+  m_Name: Brush_Reset
   m_EditorClassIdentifier: 
   brushType: 3
-  cursorRelativePosition: {x: 0.25, y: -0.48, z: 0}
-  cursorIcon: {fileID: 21300000, guid: 66b02307b190c403bb07281ed445c3c9, type: 3}
+  cursorRelativePosition: {x: 0.474, y: -0.4682, z: 0}
+  cursorIcon: {fileID: 21300000, guid: 295fc50a125fb5d4fba6c1ad84758b2a, type: 3}

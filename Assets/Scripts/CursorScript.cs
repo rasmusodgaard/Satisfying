@@ -209,7 +209,7 @@ public class CursorScript : MonoBehaviour
     private void ChangeBrushCursor(BrushBase value)
     {
         cursorSpriteRenderer.sprite = value.cursorIcon;
-        cursorSpriteRenderer.transform.localPosition = value.CursorRelativePosition;
+        cursorSpriteRenderer.transform.localPosition = value.CursorRelativePosition * cursorSpriteRenderer.transform.localScale.x;
     }
 
     public void SwitchBrush(BrushBase brush)
