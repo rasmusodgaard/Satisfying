@@ -15,3 +15,4 @@ MonoBehaviour:
   brushType: 0
   cursorRelativePosition: {x: 0.47, y: 0.47, z: 0}
   cursorIcon: {fileID: 21300000, guid: a5352833f7ad713418f7c9a8e4de875b, type: 3}
+  perimeterRadius: 0.1

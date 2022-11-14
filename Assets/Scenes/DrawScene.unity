@@ -358,6 +358,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2066437193 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 357128317996970016, guid: e217d1159c957dd4395ee6546482068b,
+    type: 3}
+  m_PrefabInstance: {fileID: 357128317390937910}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &357128317390937910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -786,6 +792,11 @@ PrefabInstance:
       objectReference: {fileID: 1371791}
     - target: {fileID: 7156458649638725190, guid: 06532fad7d854414597be7b5574625a0,
         type: 3}
+      propertyPath: brushUi
+      value: 
+      objectReference: {fileID: 2066437193}
+    - target: {fileID: 7156458649638725190, guid: 06532fad7d854414597be7b5574625a0,
+        type: 3}
       propertyPath: divider
       value: 10
       objectReference: {fileID: 0}
@@ -936,10 +947,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
+      propertyPath: defaultPaintColor.b
+      value: 0.8584906
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: defaultPaintColor.g
+      value: 0.8584906
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: defaultPaintColor.r
+      value: 0.8584906
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
       propertyPath: brushes.Array.data[3]
       value: 
       objectReference: {fileID: 11400000, guid: bd4be97dcdb6e4949a3fbc0bf562aae4,
         type: 2}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: defaultBackgroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: defaultBackgroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: defaultBackgroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
       propertyPath: serializationData.Prefab

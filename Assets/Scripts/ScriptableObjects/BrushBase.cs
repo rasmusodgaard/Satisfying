@@ -15,9 +15,9 @@ public abstract class BrushBase : ScriptableObject
 
     public BrushEnum BrushType => brushType;
 
-    public virtual void Primary(Vector3 mousePosition, float radius, Color _paintColor, List<Transform> tiles) { }
+    public virtual void Primary(Vector3 mousePosition, float radius, Color paintColor, List<Transform> tileTransforms) { }
 
-    public virtual void Secondary(Vector3 mousePosition, float radius, Color _paintColor, List<Transform> tiles) { }
+    public virtual void Secondary(Vector3 mousePosition, float radius, Color paintColor, List<Transform> tiles) { }
 
     public List<Transform> GetTilePixels(Vector2 mousePosition, float radius, List<Transform> tiles)
     {

@@ -4,6 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StandardBrush", menuName = "ScriptableObjects/StandardBrush", order = 1)]
 public class StandardBrush : BrushBase
 {
+    [SerializeField]
+    float perimeterRadius;
+
     public override void Primary(Vector3 mousePosition, float radius, Color paintColor, List<Transform> tileTransforms)
     {
         List<Transform> affectedTiles = GetTilePixels(mousePosition, radius, tileTransforms);
@@ -16,5 +19,20 @@ public class StandardBrush : BrushBase
                 tile.ColorTile(paintColor);
             }
         }
+    }
+
+    public override void Secondary(Vector3 mousePosition, float radius, Color paintColor, List<Transform> tileTransforms)
+    {
+        List<Transform> affectedTiles = GetTilePixels(mousePosition, perimeterRadius, tileTransforms);
+
+        for (int i = 0; i < affectedTiles.Count; i++)
+        {
+            TileScript tile = affectedTiles[i].GetComponent<TileScript>();
+            if (tile.GetSpriteRenderer.bounds.Contains((Vector2)mousePosition))
+            {
+                //cursorScript.SetColor(tile.GetColor());
+            }
+        }
+
     }
 }

@@ -26,6 +26,9 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     GameObject ui;
 
+    [SerializeField]
+    GameObject brushUi;
+
     Color defaultColor = Color.gray;
 
     private bool isPaletteOpen = false;
@@ -171,6 +174,7 @@ public class GridManager : MonoBehaviour
             }
         }
         isPaletteOpen = true;
+        brushUi.SetActive(false);
     }
 
     public void ClosePalette()
@@ -183,5 +187,6 @@ public class GridManager : MonoBehaviour
             }
         }
         isPaletteOpen = false;
+        brushUi.SetActive(true);
     }
 }

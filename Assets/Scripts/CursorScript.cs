@@ -60,11 +60,12 @@ public class CursorScript : MonoBehaviour
     {
         cam = Camera.main;
         Cursor.visible = false;
-        Camera.main.backgroundColor = Color.black;
+        Camera.main.backgroundColor = defaultBackgroundColor;
         brushSizeVisualizer.transform.localScale = Vector3.one * brushRadius * 2;
 
         SetupBrushDictionary();
         SwitchBrush(BrushEnum.standard);
+        SetColor(defaultPaintColor);
     }
 
     private void SetupBrushDictionary()
@@ -216,25 +217,18 @@ public class CursorScript : MonoBehaviour
         ChangeBrushCursor(brush);
     }
 
+    public void SetColor(Color color)
+    {
+        paintColor = color;
+        cursorSpriteRenderer.color = color;
+    }
+
     private void PaletteUpdate(Vector3 mousePos)
     {
-        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && activeBrush.BrushType == BrushEnum.standard)
+        if (activeBrush.BrushType == BrushEnum.standard)
         {
             Color newColor = new Color();
-            if (mousePos.x < 0)
-            {
-                // On the left side of the screen, colors go to black from full hue by lerping brightness value
-                newColor = new HSBColor(Mathf.InverseLerp(grid.ScreenWorldspaceMin.y, grid.ScreenWorldspaceMax.y, mousePos.y),
-                                          1,
-                                          Mathf.InverseLerp(grid.ScreenWorldspaceMin.x, 0, mousePos.x)).ToColor();
-            }
-            else
-            {
-                // On the right side of the screen, colors go to white from full hue by lerping the saturation value
-                newColor = new HSBColor(Mathf.InverseLerp(grid.ScreenWorldspaceMin.y, grid.ScreenWorldspaceMax.y, mousePos.y),
-                                          Mathf.InverseLerp(grid.ScreenWorldspaceMax.x, 0, mousePos.x),
-                                          1).ToColor();
-            }
+            newColor = GetPaletteColor(mousePos);
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -246,5 +240,26 @@ public class CursorScript : MonoBehaviour
                 cam.backgroundColor = newColor;
             }
         }
+    }
+
+    private Color GetPaletteColor(Vector3 mousePos)
+    {
+        Color newColor;
+        if (mousePos.x < 0)
+        {
+            // On the left side of the screen, colors go to black from full hue by lerping brightness value
+            newColor = new HSBColor(Mathf.InverseLerp(grid.ScreenWorldspaceMin.y, grid.ScreenWorldspaceMax.y, mousePos.y),
+                                      1,
+                                      Mathf.InverseLerp(grid.ScreenWorldspaceMin.x, 0, mousePos.x)).ToColor();
+        }
+        else
+        {
+            // On the right side of the screen, colors go to white from full hue by lerping the saturation value
+            newColor = new HSBColor(Mathf.InverseLerp(grid.ScreenWorldspaceMin.y, grid.ScreenWorldspaceMax.y, mousePos.y),
+                                      Mathf.InverseLerp(grid.ScreenWorldspaceMax.x, 0, mousePos.x),
+                                      1).ToColor();
+        }
+
+        return newColor;
     }
 }

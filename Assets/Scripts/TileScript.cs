@@ -3,6 +3,7 @@
 public class TileScript : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
+    public SpriteRenderer GetSpriteRenderer => spriteRenderer;
     Color initColor;
     Vector3 initPosition;
 
