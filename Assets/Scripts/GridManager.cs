@@ -13,7 +13,7 @@ public class GridManager : MonoBehaviour
     public GameObject pixelPrefab;
     public int gridSizeDivider = 32;
     public List<Transform> TileTransforms { get; private set; }
-    public bool ColorChangerOpen => colorChangerOpen;
+    public bool ColorChangerOpen => isPaletteOpen;
     public Vector2 GridSize => gridSize;
 
     public Vector3 ScreenWorldspaceMin => screenWorldspaceMin;
@@ -23,9 +23,12 @@ public class GridManager : MonoBehaviour
     //                   private                    //
     //----------------------------------------------//
 
+    [SerializeField]
+    GameObject ui;
+
     Color defaultColor = Color.gray;
 
-    private bool colorChangerOpen = false;
+    private bool isPaletteOpen = false;
     private Vector3 screenWorldspaceMin;
     private Vector3 screenWorldspaceMax;
 
@@ -102,14 +105,21 @@ public class GridManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P) && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
         {
-            StartCoroutine(TakeScreenShotOfImage());
+            TakeScreenshot();
         }
     }
 
+    public void TakeScreenshot()
+    {
+        StartCoroutine(SaveScreenshotCoroutine());
+    }
+
+
     // TODO: Remove cursor and UI from picture
     // TODO: Make save location for desktop build
-    private IEnumerator TakeScreenShotOfImage()
+    private IEnumerator SaveScreenshotCoroutine()
     {
+        ui.SetActive(false);
         yield return new WaitForEndOfFrame();
         string date = System.DateTime.Now.ToString("dd:MM:yyyy:HH:mm");
         date = date.Replace("/", "-");
@@ -125,9 +135,22 @@ public class GridManager : MonoBehaviour
             byte[] png = texture.EncodeToPNG();
             WebGLFileSaver.SaveFile(png, "Skedgy - " + date, "image/png");
         }
+        ui.SetActive(true);
     }
 
-    public void OpenColorChanger()
+    public void TogglePalette()
+    {
+        if (isPaletteOpen)
+        {
+            ClosePalette();
+        }
+        else
+        {
+            OpenPalette();
+        }
+    }
+
+    public void OpenPalette()
     {
         for (int y = 0; y < gridSize.y; y++)
         {
@@ -147,10 +170,10 @@ public class GridManager : MonoBehaviour
                 tileScripts[x, y].ColorTile(final);
             }
         }
-        colorChangerOpen = true;
+        isPaletteOpen = true;
     }
 
-    public void CloseColorChanger()
+    public void ClosePalette()
     {
         for (int y = 0; y < gridSize.y; y++)
         {
@@ -159,6 +182,6 @@ public class GridManager : MonoBehaviour
                 tileScripts[x, y].ColorTile(currentImageBackup[x, y]);
             }
         }
-        colorChangerOpen = false;
+        isPaletteOpen = false;
     }
 }

@@ -110,7 +110,7 @@ public class CursorScript : MonoBehaviour
                 return;
             }
 
-            ColorChangerUpdate(mousePosition);
+            PaletteUpdate(mousePosition);
         }
     }
 
@@ -120,11 +120,11 @@ public class CursorScript : MonoBehaviour
         {
             if (!grid.ColorChangerOpen)
             {
-                grid.OpenColorChanger();
+                grid.OpenPalette();
             }
             else
             {
-                grid.CloseColorChanger();
+                grid.ClosePalette();
             }
         }
         else if (Input.GetKeyDown(KeyCode.B))
@@ -216,7 +216,7 @@ public class CursorScript : MonoBehaviour
         ChangeBrushCursor(brush);
     }
 
-    private void ColorChangerUpdate(Vector3 mousePos)
+    private void PaletteUpdate(Vector3 mousePos)
     {
         if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && activeBrush.BrushType == BrushEnum.standard)
         {
