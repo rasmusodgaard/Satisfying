@@ -6,6 +6,7 @@ public class TileScript : MonoBehaviour
     public SpriteRenderer GetSpriteRenderer => spriteRenderer;
     Color initColor;
     Vector3 initPosition;
+    Sprite initSprite;
 
     public void Init(Color defaultColor)
     {
@@ -42,6 +43,11 @@ public class TileScript : MonoBehaviour
     public Color GetColor()
     {
         return spriteRenderer.color;
+    }
+
+    public void SetSprite(Sprite sprite)
+    {
+        spriteRenderer.sprite = sprite;
     }
 
 }

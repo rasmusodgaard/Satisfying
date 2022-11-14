@@ -943,7 +943,7 @@ PrefabInstance:
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
       propertyPath: brushes.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
@@ -963,6 +963,12 @@ PrefabInstance:
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
       propertyPath: brushes.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 65262308ff917f44f88d506e9528c3fa,
+        type: 2}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: brushes.Array.data[4]
       value: 
       objectReference: {fileID: 11400000, guid: bd4be97dcdb6e4949a3fbc0bf562aae4,
         type: 2}

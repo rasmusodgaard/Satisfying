@@ -162,6 +162,10 @@ public class CursorScript : MonoBehaviour
         {
             SwitchBrush(BrushEnum.reset);
         }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            SwitchBrush(BrushEnum.sprite);
+        }
     }
 
     // TODO: Fix bug with wrong visualizer size after making cursor smaller

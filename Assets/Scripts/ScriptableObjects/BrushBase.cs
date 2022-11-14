@@ -15,6 +15,7 @@ public abstract class BrushBase : ScriptableObject
 
     public BrushEnum BrushType => brushType;
 
+    // TODO: Send TileScripts instead of tileTranforms for optimization reasons
     public virtual void Primary(Vector3 mousePosition, float radius, Color paintColor, List<Transform> tileTransforms) { }
 
     public virtual void Secondary(Vector3 mousePosition, float radius, Color paintColor, List<Transform> tiles) { }
