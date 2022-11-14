@@ -96,12 +96,10 @@ public class CursorScript : MonoBehaviour
 
             if (Input.GetMouseButton(0))
             {
-                //brushes[(int)brush].Primary(mousePos, brushRadius, paintColor, grid.TileTransforms);
                 activeBrush.Primary(mousePosition, brushRadius, paintColor, grid.TileTransforms);
             }
             else if (Input.GetMouseButton(1))
             {
-                //brushes[(int)brush].Secondary(mousePos, brushRadius, paintColor, grid.TileTransforms);
                 activeBrush.Secondary(mousePosition, brushRadius, paintColor, grid.TileTransforms);
             }
         }
@@ -220,7 +218,7 @@ public class CursorScript : MonoBehaviour
 
     private void ColorChangerUpdate(Vector3 mousePos)
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) && activeBrush.BrushType == BrushEnum.standard)
         {
             Color newColor = new Color();
             if (mousePos.x < 0)
