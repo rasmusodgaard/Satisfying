@@ -7,6 +7,9 @@ public class StandardBrush : BrushBase
     [SerializeField]
     float perimeterRadius;
 
+    public delegate void SetColorDelegate(Color color);
+    public event SetColorDelegate SetColor;
+
     public override void Primary(Vector3 mousePosition, float radius, Color paintColor, List<Transform> tileTransforms)
     {
         List<Transform> affectedTiles = GetTilePixels(mousePosition, radius, tileTransforms);
@@ -30,7 +33,7 @@ public class StandardBrush : BrushBase
             TileScript tile = affectedTiles[i].GetComponent<TileScript>();
             if (tile.GetSpriteRenderer.bounds.Contains((Vector2)mousePosition))
             {
-                //cursorScript.SetColor(tile.GetColor());
+                SetColor?.Invoke(tile.GetColor());
             }
         }
 

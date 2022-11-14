@@ -76,6 +76,24 @@ public class CursorScript : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        if (brushDictionary.TryGetValue(BrushEnum.standard, out BrushBase brushBase))
+        {
+            var standardBrush = (StandardBrush)brushBase;
+            standardBrush.SetColor += SetColor;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (brushDictionary.TryGetValue(BrushEnum.standard, out BrushBase brushBase))
+        {
+            var standardBrush = (StandardBrush)brushBase;
+            standardBrush.SetColor -= SetColor;
+        }
+    }
+
     void Update()
     {
         mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
