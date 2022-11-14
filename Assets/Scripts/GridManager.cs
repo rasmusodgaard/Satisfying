@@ -1,5 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,6 +53,26 @@ public class GridManager : MonoBehaviour
         GetScreenInfo();
         DrawGrid();
         tileCount = gridSize.x * gridSize.y;
+        print("Tilecount: " + tileCount);
+    }
+
+
+    private void GetScreenInfo()
+    {
+        screenWorldspaceMin = cam.ScreenToWorldPoint(Vector3.zero);
+        screenWorldspaceMax = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+
+        sideLengths = new Vector2(Mathf.Abs(screenWorldspaceMax.x - screenWorldspaceMin.x), Mathf.Abs(screenWorldspaceMax.y - screenWorldspaceMin.y));
+        spriteSideLength = pixelPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
+
+        // TODO: Consider making a quality adjustment option (number of pixels)
+        //gridSize = new Vector2(Screen.width / gridSizeDivider, Screen.height / gridSizeDivider);
+        gridSize = new Vector2(1920 / gridSizeDivider, 1080 / gridSizeDivider);
+        currentImageBackup = new Color[(int)gridSize.x, (int)gridSize.y];
+
+        double worldScreenHeight = cam.orthographicSize * 2.0;
+        double worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
+        tileSize = (float)Math.Round(0.005 + (worldScreenWidth / spriteSideLength) / gridSize.x, 2);
     }
 
     // TODO: Make asynchronous solution
@@ -77,39 +98,33 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    private void GetScreenInfo()
-    {
-        screenWorldspaceMin = cam.ScreenToWorldPoint(Vector3.zero);
-        screenWorldspaceMax = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
-
-        sideLengths = new Vector2(Mathf.Abs(screenWorldspaceMax.x - screenWorldspaceMin.x), Mathf.Abs(screenWorldspaceMax.y - screenWorldspaceMin.y));
-        spriteSideLength = pixelPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
-
-        gridSize = new Vector2(Screen.width / gridSizeDivider, Screen.height / gridSizeDivider);
-        currentImageBackup = new Color[(int)gridSize.x, (int)gridSize.y];
-
-        double worldScreenHeight = cam.orthographicSize * 2.0;
-        double worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
-        tileSize = (float)Math.Round(0.005 + (worldScreenWidth / spriteSideLength) / gridSize.x, 2);
-    }
-
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.P) && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
         {
-            TakeScreenShotOfImage();
+            StartCoroutine(TakeScreenShotOfImage());
         }
     }
 
-    // TODO: Remove cursor from picture
-    private static void TakeScreenShotOfImage()
+    // TODO: Remove cursor and UI from picture
+    // TODO: Make save location for desktop build
+    private IEnumerator TakeScreenShotOfImage()
     {
-        string date = System.DateTime.Now.ToString();
+        yield return new WaitForEndOfFrame();
+        string date = System.DateTime.Now.ToString("dd:MM:yyyy:HH:mm");
         date = date.Replace("/", "-");
         date = date.Replace(" ", "_");
         date = date.Replace(":", "-");
-        ScreenCapture.CaptureScreenshot("Creations\\MasterPeace - " + date + ".png", 2); // TODO: Handle image download from webbuild
+        if (Application.isEditor)
+        {
+            ScreenCapture.CaptureScreenshot("Creations\\MasterPeace - " + date + ".png", 2);
+        }
+        else if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            Texture2D texture = ScreenCapture.CaptureScreenshotAsTexture();
+            byte[] png = texture.EncodeToPNG();
+            WebGLFileSaver.SaveFile(png, "Skedgy - " + date, "image/png");
+        }
     }
 
     public void OpenColorChanger()
