@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.gabrielbigardi.spriteanimator": "https://github.com/GabrielBigardi/2D-Sprite-Animator.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.2d.tilemap": "1.0.0",
     "com.unity.collab-proxy": "1.17.2",
