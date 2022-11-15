@@ -591,16 +591,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 357128319388083454, guid: e217d1159c957dd4395ee6546482068b,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 357128319388083454, guid: e217d1159c957dd4395ee6546482068b,
-        type: 3}
-      propertyPath: m_PreserveAspect
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1407277031018644947, guid: e217d1159c957dd4395ee6546482068b,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -730,6 +720,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916759991163133726, guid: e217d1159c957dd4395ee6546482068b,
+        type: 3}
+      propertyPath: maxWaitTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916759991163133726, guid: e217d1159c957dd4395ee6546482068b,
+        type: 3}
+      propertyPath: minWaitTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5989283501640920607, guid: e217d1159c957dd4395ee6546482068b,
         type: 3}

@@ -1,11 +1,13 @@
+using Animancer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AnimancerComponent))]
 public class RandomOneShotAnimationController : MonoBehaviour
 {
-    Animator animator;
+    AnimancerComponent animancer;
 
     [SerializeField]
     List<AnimationClip> animationClips = new List<AnimationClip>();
@@ -18,30 +20,28 @@ public class RandomOneShotAnimationController : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        animancer = GetComponent<AnimancerComponent>();
     }
 
     private void Start()
     {
-        //StartNewWaitAndPlay();
-        //float waitTime = Random.Range(minWaitTime, maxWaitTime);
-        //AnimationClip animationClip = animationClips[Random.Range(0, animationClips.Count - 1)];
-        //animator.clip = animationClip;
+        StartNewWaitAndPlay();
     }
 
     void StartNewWaitAndPlay()
     {
         float waitTime = Random.Range(minWaitTime, maxWaitTime);
-        AnimationClip animationClip = animationClips[Random.Range(0, animationClips.Count - 1)];
-        //animator.clip = animationClip;
+        AnimationClip animationClip = animationClips[Random.Range(0, animationClips.Count)];
         StartCoroutine(WaitAndPlayAnimationCoroutine(waitTime, animationClip));
     }
 
     IEnumerator WaitAndPlayAnimationCoroutine(float waitTime, AnimationClip animationClip)
     {
         yield return new WaitForSeconds(waitTime);
-        //animator.Play();
-        //yield return new WaitUntil(() => animator.isPlaying == false);
+        AnimancerState state = animancer.Play(animationClip);
+        yield return new WaitUntil(() => state.NormalizedTime >= 1);
+        state.Stop();
+        state.NormalizedTime = 0;
         StartNewWaitAndPlay();
     }
 }

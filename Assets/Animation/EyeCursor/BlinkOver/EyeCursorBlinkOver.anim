@@ -8,7 +8,7 @@ AnimationClip:
   m_PrefabAsset: {fileID: 0}
   m_Name: EyeCursorBlinkOver
   serializedVersion: 6
-  m_Legacy: 1
+  m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
   m_RotationCurves: []
@@ -53,8 +53,27 @@ AnimationClip:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings: []
-    pptrCurveMapping: []
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: fb7eba81a6dfc2649a2e635b2aea2af6, type: 3}
+    - {fileID: 21300000, guid: 9638f4727a8fe28488ff565a9ab2b31e, type: 3}
+    - {fileID: 21300000, guid: 48ba10b3eb1d67642a44c0167a1f25fe, type: 3}
+    - {fileID: 21300000, guid: 9638f4727a8fe28488ff565a9ab2b31e, type: 3}
+    - {fileID: 21300000, guid: 8193a2d2046ac4640b6f430f3ed4aa6a, type: 3}
+    - {fileID: 21300000, guid: 5ceccbd3b54a34442a302a2a6391b6e5, type: 3}
+    - {fileID: 21300000, guid: 2954b40b156f94f4fb0d0af97d189293, type: 3}
+    - {fileID: 21300000, guid: 53e3e20ae782a0244a565c3026bd8c2a, type: 3}
+    - {fileID: 21300000, guid: 5af7e0a612e2db742b7ddfcde90d35bd, type: 3}
+    - {fileID: 21300000, guid: 53e3e20ae782a0244a565c3026bd8c2a, type: 3}
+    - {fileID: 21300000, guid: 2954b40b156f94f4fb0d0af97d189293, type: 3}
+    - {fileID: 21300000, guid: 5ceccbd3b54a34442a302a2a6391b6e5, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
