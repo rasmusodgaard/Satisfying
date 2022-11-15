@@ -17,5 +17,5 @@ MonoBehaviour:
   cursorIcon: {fileID: 0}
   sprites:
   - {fileID: 21300000, guid: b569bb6bee1a84be6a8fda512d9f0497, type: 3}
-  - {fileID: 21300000, guid: 23341993f2a8c433d926e05645209041, type: 3}
-  - {fileID: 21300000, guid: 2d62bf936eb4244e4832be9674f222a7, type: 3}
+  - {fileID: 21300000, guid: 1ef1a48f10bbaa249bb24a21c60d64e6, type: 3}
+  - {fileID: 21300000, guid: 0c637ec721d146d428694b306c3464b9, type: 3}

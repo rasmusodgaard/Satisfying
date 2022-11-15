@@ -591,6 +591,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 357128319388083454, guid: e217d1159c957dd4395ee6546482068b,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 357128319388083454, guid: e217d1159c957dd4395ee6546482068b,
+        type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1407277031018644947, guid: e217d1159c957dd4395ee6546482068b,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -641,6 +651,26 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3534043682432671684, guid: e217d1159c957dd4395ee6546482068b,
+        type: 3}
+      propertyPath: m_Animation
+      value: 
+      objectReference: {fileID: 7400000, guid: fe3fc70113827d34ea7c625d7d436284, type: 2}
+    - target: {fileID: 3534043682432671684, guid: e217d1159c957dd4395ee6546482068b,
+        type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534043682432671684, guid: e217d1159c957dd4395ee6546482068b,
+        type: 3}
+      propertyPath: m_Animations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534043682432671684, guid: e217d1159c957dd4395ee6546482068b,
+        type: 3}
+      propertyPath: m_Animations.Array.data[0]
+      value: 
+      objectReference: {fileID: 7400000, guid: fe3fc70113827d34ea7c625d7d436284, type: 2}
     - target: {fileID: 4274055503765460949, guid: e217d1159c957dd4395ee6546482068b,
         type: 3}
       propertyPath: m_AnchorMax.y
