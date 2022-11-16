@@ -11,6 +11,8 @@ public abstract class BrushBase : ScriptableObject
 
     public Sprite cursorIcon;
 
+    public Texture2D cursor;
+
     public Vector3 CursorRelativePosition => cursorRelativePosition;
 
     public BrushEnum BrushType => brushType;

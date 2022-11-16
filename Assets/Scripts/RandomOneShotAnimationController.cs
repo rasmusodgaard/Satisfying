@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AnimancerComponent))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AnimancerComponent))]
 public class RandomOneShotAnimationController : MonoBehaviour
 {
     AnimancerComponent animancer;
