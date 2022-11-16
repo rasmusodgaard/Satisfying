@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AnimancerComponent))]
+[RequireComponent(typeof(Animator))]
 public class RandomOneShotAnimationController : MonoBehaviour
 {
     AnimancerComponent animancer;
@@ -17,6 +17,9 @@ public class RandomOneShotAnimationController : MonoBehaviour
 
     [SerializeField]
     float maxWaitTime;
+
+    [SerializeField]
+    float playbackSpeed;
 
     private void Awake()
     {
@@ -39,9 +42,9 @@ public class RandomOneShotAnimationController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         AnimancerState state = animancer.Play(animationClip);
-        yield return new WaitUntil(() => state.NormalizedTime >= 1);
-        state.Stop();
-        state.NormalizedTime = 0;
+        state.Time = 0;
+        state.Speed = playbackSpeed;
+        yield return state;
         StartNewWaitAndPlay();
     }
 }
