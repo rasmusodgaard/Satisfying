@@ -59,7 +59,7 @@ public class CursorScript : MonoBehaviour
     void Awake()
     {
         cam = Camera.main;
-        Cursor.visible = false;
+        //Cursor.visible = false;
         Camera.main.backgroundColor = defaultBackgroundColor;
         brushSizeVisualizer.transform.localScale = Vector3.one * brushRadius * 2;
 
@@ -229,8 +229,9 @@ public class CursorScript : MonoBehaviour
 
     private void ChangeBrushCursor(BrushBase value)
     {
-        cursorSpriteRenderer.sprite = value.cursorIcon;
-        cursorSpriteRenderer.transform.localPosition = value.CursorRelativePosition * cursorSpriteRenderer.transform.localScale.x;
+        //cursorSpriteRenderer.sprite = value.cursorIconSprite;
+        //cursorSpriteRenderer.transform.localPosition = value.CursorRelativeSpritePosition * cursorSpriteRenderer.transform.localScale.x;
+        Cursor.SetCursor(value.cursorTexture, value.CursorRelativeTexturePosition, CursorMode.Auto);
     }
 
     public void SwitchBrush(BrushBase brush)
@@ -242,7 +243,6 @@ public class CursorScript : MonoBehaviour
     public void SetColor(Color color)
     {
         paintColor = color;
-        cursorSpriteRenderer.color = color;
     }
 
     private void PaletteUpdate(Vector3 mousePos)
@@ -255,7 +255,6 @@ public class CursorScript : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 paintColor = newColor;
-                cursorSpriteRenderer.color = newColor;
             }
             else if (Input.GetMouseButtonDown(1))
             {

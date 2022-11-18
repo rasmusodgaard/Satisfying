@@ -7,13 +7,19 @@ public abstract class BrushBase : ScriptableObject
     BrushEnum brushType;
 
     [SerializeField]
-    Vector3 cursorRelativePosition;
+    Vector3 cursorRelativeSpritePosition;
 
-    public Sprite cursorIcon;
+    public Sprite cursorIconSprite;
 
-    public Texture2D cursor;
+    [SerializeField]
+    Vector3 cursorRelativeTexturePosition;
 
-    public Vector3 CursorRelativePosition => cursorRelativePosition;
+    public Texture2D cursorTexture;
+
+    public Vector3 CursorRelativeSpritePosition => cursorRelativeSpritePosition;
+    public Vector3 CursorRelativeTexturePosition => cursorRelativeTexturePosition;
+
+
 
     public BrushEnum BrushType => brushType;
 

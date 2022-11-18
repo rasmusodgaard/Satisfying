@@ -100,7 +100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4265094886816398909
 Transform:
   m_ObjectHideFlags: 0
@@ -109,9 +109,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7430432861792094740}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.47, y: 0.47, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0.235, y: 0.235, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8638884595387863053}
   m_RootOrder: 0
@@ -194,7 +194,7 @@ Transform:
   m_GameObject: {fileID: 8638884595387863055}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4265094886816398909}
@@ -218,8 +218,8 @@ MonoBehaviour:
   cursorSpriteRenderer: {fileID: 2888098290608187499}
   brushSizeVisualizer: {fileID: 1234167693}
   defaultTileColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  defaultBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
-  defaultPaintColor: {r: 0, g: 0, b: 0, a: 1}
+  defaultBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  defaultPaintColor: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
   alphaFadeScalar: 2
   brushSizeVisualizerAlpha: 0.4
   scrollDeltaScalar: 100
@@ -231,3 +231,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3d5912d122f14f7cbcd4055ee9e40e4, type: 2}
   - {fileID: 11400000, guid: 8b9b36e4d18224eebb2ff3325085d7c8, type: 2}
   - {fileID: 11400000, guid: ff0ab13d0526d474b8040d46bee9d413, type: 2}
+  - {fileID: 11400000, guid: 65262308ff917f44f88d506e9528c3fa, type: 2}
+  - {fileID: 11400000, guid: bd4be97dcdb6e4949a3fbc0bf562aae4, type: 2}
