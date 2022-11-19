@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Brush_Sprite", menuName = "ScriptableObjects/SpriteBrush", order = 1)]
-public class SpriteBrush : BrushBase
+public class SpriteBrush : BrushBase, IResetBrush
 {
     [SerializeField]
     List<Sprite> sprites;
@@ -27,9 +27,10 @@ public class SpriteBrush : BrushBase
         }
     }
 
+
     public override void Secondary(Vector3 mousePosition, float radius, Color paintColor, List<Transform> tiles)
     {
-        // HACK: Make cleaner check for initial button press
+        // HACK: Make cleaner check for initial button press (or is it fine?)
         if (Input.GetMouseButtonDown(1))
         {
             currentSpriteIndex++;
@@ -38,5 +39,9 @@ public class SpriteBrush : BrushBase
                 currentSpriteIndex = 0;
             }
         }
+    }
+    public void Reset()
+    {
+        currentSpriteIndex = 0;
     }
 }

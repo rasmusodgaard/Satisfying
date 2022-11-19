@@ -8,6 +8,10 @@ public class CursorScript : MonoBehaviour
     [SerializeField]
     GridManager grid;
 
+    // HACK: Upgrade when event system is implemented
+    [SerializeField]
+    BrushSelectionHighlight brushSelectionHighlight;
+
     [SerializeField]
     SpriteRenderer brushSizeVisualizer;
 
@@ -69,6 +73,12 @@ public class CursorScript : MonoBehaviour
         foreach (BrushBase brush in brushes)
         {
             brushDictionary.Add(brush.BrushType, brush);
+
+            IResetBrush resetBrush = brush as IResetBrush;
+            if (resetBrush != null)
+            {
+                resetBrush.Reset();
+            }
         }
     }
 
@@ -216,6 +226,7 @@ public class CursorScript : MonoBehaviour
         if (brushDictionary.TryGetValue(brush, out BrushBase value))
         {
             activeBrush = value;
+            brushSelectionHighlight.SetBrushSelectionHighlight(brush);
             ChangeBrushCursor(value);
         }
         else
@@ -232,6 +243,7 @@ public class CursorScript : MonoBehaviour
     public void SwitchBrush(BrushBase brush)
     {
         activeBrush = brush;
+        brushSelectionHighlight.SetBrushSelectionHighlight(brush.BrushType);
         ChangeBrushCursor(brush);
     }
 
