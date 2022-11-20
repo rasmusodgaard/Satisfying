@@ -426,7 +426,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  highligtColor: {r: 0, g: 0, b: 0, a: 0}
+  highligtColor: {r: 0.25490198, g: 0.8980392, b: 0.77254903, a: 1}
 --- !u!1 &357128318047712786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,9 +1093,9 @@ MonoBehaviour:
   - {fileID: 7400000, guid: dcd7f04173a387a4188ef10e0cb70ee1, type: 2}
   - {fileID: 7400000, guid: f26e7eaec6b4fdf4fa3e3f899a7ea9d7, type: 2}
   - {fileID: 7400000, guid: 6075231885f58c448bac16811e368a0f, type: 2}
-  minWaitTime: 1
-  maxWaitTime: 2
-  playbackSpeed: 0.4
+  minWaitTime: 5
+  maxWaitTime: 30
+  playbackSpeed: 0.5
 --- !u!95 &5399825250802691059
 Animator:
   serializedVersion: 4
