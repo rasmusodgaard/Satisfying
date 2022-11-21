@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,12 +25,17 @@ public class CursorScript : MonoBehaviour
     [SerializeField]
     Color defaultPaintColor = Color.black;
 
+
     [SerializeField]
     float alphaFadeScalar;
 
     [SerializeField]
     [Range(0f, 1f)]
-    float brushSizeVisualizerAlpha;
+    float brushSizeVisualizerMaxAlpha;
+
+    [SerializeField]
+    [Range(0f, 1f)]
+    float brushSizeVisualizerMinAlpha;
 
     [SerializeField]
     float scrollDeltaScalar = 100;
@@ -48,6 +54,10 @@ public class CursorScript : MonoBehaviour
     float maxBrushSize;
 
     [SerializeField]
+    [PropertyRange(nameof(minBrushSize), nameof(maxBrushSize))]
+    float defaultBrushRadius;
+
+    [SerializeField]
     BrushBase[] brushes;
 
     Camera cam;
@@ -55,13 +65,18 @@ public class CursorScript : MonoBehaviour
     Vector3 mousePosition;
     BrushBase activeBrush;
     Dictionary<BrushEnum, BrushBase> brushDictionary = new Dictionary<BrushEnum, BrushBase>();
-    float brushRadius = 0.25f;
+    float brushRadius;
 
     void Awake()
     {
         cam = Camera.main;
         Camera.main.backgroundColor = defaultBackgroundColor;
         brushSizeVisualizer.transform.localScale = Vector3.one * brushRadius * 2;
+        brushRadius = defaultBrushRadius;
+
+        // TODO: Fix the size visualizer not starting visible
+        brushChangeDelayTemp = brushChangeFadeDelay;
+        AdjustBrushSizeVisualizerAlpha(false);
 
         SetupBrushDictionary();
         SwitchBrush(BrushEnum.standard);
@@ -174,7 +189,6 @@ public class CursorScript : MonoBehaviour
         }
     }
 
-    // TODO: Fix bug with wrong visualizer size after making cursor smaller
     private void CheckForBrushSizeChanges()
     {
         float scaledScrollDelta = Input.mouseScrollDelta.y * scrollDeltaScalar;
@@ -205,18 +219,18 @@ public class CursorScript : MonoBehaviour
         if (isIncreasingAlpha)
         {
             Color tempColor = brushSizeVisualizer.color;
-            tempColor.a = brushSizeVisualizerAlpha;
+            tempColor.a = brushSizeVisualizerMaxAlpha;
             brushSizeVisualizer.color = tempColor;
         }
         else
         {
-            if (Mathf.Approximately(brushSizeVisualizer.color.a, 0.0f))
+            if (Mathf.Approximately(brushSizeVisualizer.color.a, brushSizeVisualizerMinAlpha))
             {
                 return;
             }
 
             Color tempColor = brushSizeVisualizer.color;
-            tempColor.a = Mathf.Clamp(tempColor.a - alphaFadeScalar * Time.deltaTime, 0.0f, brushSizeVisualizerAlpha);
+            tempColor.a = Mathf.Clamp(tempColor.a - alphaFadeScalar * Time.deltaTime, brushSizeVisualizerMinAlpha, brushSizeVisualizerMaxAlpha);
             brushSizeVisualizer.color = tempColor;
         }
     }

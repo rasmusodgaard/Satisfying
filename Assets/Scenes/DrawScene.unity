@@ -1040,7 +1040,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1234167693, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb, type: 3}
       propertyPath: m_Color.a
-      value: 0
+      value: 0.5019608
       objectReference: {fileID: 0}
     - target: {fileID: 1222963059339731372, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
@@ -1085,6 +1085,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
+      propertyPath: defaultBrushRadius
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
       propertyPath: brushSelectionHighlight
       value: 
       objectReference: {fileID: 2066437197}
@@ -1094,6 +1099,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: brushSizeVisualizerMaxAlpha
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
+        type: 3}
+      propertyPath: brushSizeVisualizerMinAlpha
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8638884595387863053, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
       propertyPath: m_RootOrder
