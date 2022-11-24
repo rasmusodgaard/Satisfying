@@ -382,6 +382,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &978470906 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 296253440525318663, guid: e217d1159c957dd4395ee6546482068b,
+    type: 3}
+  m_PrefabInstance: {fileID: 357128317390937910}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1366285843 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7604603679513938138, guid: e217d1159c957dd4395ee6546482068b,
@@ -754,10 +760,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3447614095919386030, guid: e217d1159c957dd4395ee6546482068b,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -890,10 +892,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8492788079051641139, guid: e217d1159c957dd4395ee6546482068b,
         type: 3}
+      propertyPath: PaletteUI
+      value: 
+      objectReference: {fileID: 978470906}
+    - target: {fileID: 8492788079051641139, guid: e217d1159c957dd4395ee6546482068b,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 8492788079051641139, guid: e217d1159c957dd4395ee6546482068b,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 8492788079051641139, guid: e217d1159c957dd4395ee6546482068b,
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.size
@@ -1119,11 +1125,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
-      propertyPath: defaultBrushRadius
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
-        type: 3}
       propertyPath: brushSelectionHighlight
       value: 
       objectReference: {fileID: 2066437197}
@@ -1133,16 +1134,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
-    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
-        type: 3}
-      propertyPath: brushSizeVisualizerMaxAlpha
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8638884595387863052, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
-        type: 3}
-      propertyPath: brushSizeVisualizerMinAlpha
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 8638884595387863053, guid: 5e45eeb50bc7f9f4db1959d2c3a5a5fb,
         type: 3}
       propertyPath: m_RootOrder

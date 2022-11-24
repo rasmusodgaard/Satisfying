@@ -19,6 +19,9 @@ public class GridManager : MonoBehaviour
     public Vector3 ScreenWorldspaceMin => screenWorldspaceMin;
     public Vector3 ScreenWorldspaceMax => screenWorldspaceMax;
 
+    public delegate void PaletteChangeDelegate(bool isOpen);
+    public event PaletteChangeDelegate paletteChangeEvent;
+
     //----------------------------------------------//
     //                   private                    //
     //----------------------------------------------//
@@ -117,8 +120,6 @@ public class GridManager : MonoBehaviour
         StartCoroutine(SaveScreenshotCoroutine());
     }
 
-
-    // TODO: Remove cursor and UI from picture
     // TODO: Make save location for desktop build
     private IEnumerator SaveScreenshotCoroutine()
     {
@@ -151,6 +152,8 @@ public class GridManager : MonoBehaviour
         {
             OpenPalette();
         }
+
+        paletteChangeEvent?.Invoke(isPaletteOpen);
     }
 
     public void OpenPalette()
@@ -173,6 +176,7 @@ public class GridManager : MonoBehaviour
                 tileScripts[x, y].ColorTile(final);
             }
         }
+
         isPaletteOpen = true;
         brushUi.SetActive(false);
     }

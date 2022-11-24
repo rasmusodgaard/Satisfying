@@ -25,7 +25,6 @@ public class CursorScript : MonoBehaviour
     [SerializeField]
     Color defaultPaintColor = Color.black;
 
-
     [SerializeField]
     float alphaFadeScalar;
 
@@ -59,6 +58,15 @@ public class CursorScript : MonoBehaviour
 
     [SerializeField]
     BrushBase[] brushes;
+
+    [SerializeField]
+    GameObject colorPreviewerObject;
+
+    [SerializeField]
+    SpriteRenderer colorPreviewerInnerNew;
+
+    [SerializeField]
+    SpriteRenderer colorPreviewerInnerCurrent;
 
     Camera cam;
     Color paintColor;
@@ -104,6 +112,8 @@ public class CursorScript : MonoBehaviour
             var standardBrush = (StandardBrush)brushBase;
             standardBrush.SetColor += SetColor;
         }
+
+        grid.paletteChangeEvent += OnPaletteChanged;
     }
 
     private void OnDisable()
@@ -113,6 +123,8 @@ public class CursorScript : MonoBehaviour
             var standardBrush = (StandardBrush)brushBase;
             standardBrush.SetColor -= SetColor;
         }
+
+        grid.paletteChangeEvent -= OnPaletteChanged;
     }
 
     void Update()
@@ -158,14 +170,7 @@ public class CursorScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            if (!grid.ColorChangerOpen)
-            {
-                grid.OpenPalette();
-            }
-            else
-            {
-                grid.ClosePalette();
-            }
+            grid.TogglePalette();
         }
         else if (Input.GetKeyDown(KeyCode.B))
         {
@@ -249,6 +254,11 @@ public class CursorScript : MonoBehaviour
         }
     }
 
+    void OnPaletteChanged(bool isOpen)
+    {
+        colorPreviewerObject.SetActive(isOpen);
+    }
+
     private void ChangeBrushCursor(BrushBase value)
     {
         Cursor.SetCursor(value.cursorTexture, value.CursorRelativeTexturePosition, CursorMode.Auto);
@@ -264,23 +274,23 @@ public class CursorScript : MonoBehaviour
     public void SetColor(Color color)
     {
         paintColor = color;
+        colorPreviewerInnerCurrent.color = color;
     }
 
     private void PaletteUpdate(Vector3 mousePos)
     {
-        if (activeBrush.BrushType == BrushEnum.standard)
-        {
-            Color newColor = new Color();
-            newColor = GetPaletteColor(mousePos);
+        Color newColor = new Color();
+        newColor = GetPaletteColor(mousePos);
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                paintColor = newColor;
-            }
-            else if (Input.GetMouseButtonDown(1))
-            {
-                cam.backgroundColor = newColor;
-            }
+        colorPreviewerInnerNew.color = newColor;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            SetColor(newColor);
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            cam.backgroundColor = newColor;
         }
     }
 
