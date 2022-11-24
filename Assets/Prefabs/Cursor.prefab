@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 23341993f2a8c433d926e05645209041, type: 3}
-  m_Color: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 0}
+  m_Color: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -525,3 +525,7 @@ MonoBehaviour:
   colorPreviewerObject: {fileID: 5453104435561508707}
   colorPreviewerInnerNew: {fileID: 7748973396349716906}
   colorPreviewerInnerCurrent: {fileID: 783962754432757169}
+  selectPunchScalar: 1.1
+  selectPunchDuration: 0.8
+  selectPunchVibration: 5
+  selectPunchElasticity: 0.33

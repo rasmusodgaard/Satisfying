@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using DG.Tweening;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,6 +68,18 @@ public class CursorScript : MonoBehaviour
 
     [SerializeField]
     SpriteRenderer colorPreviewerInnerCurrent;
+
+    [SerializeField]
+    float selectPunchScalar;
+
+    [SerializeField]
+    float selectPunchDuration;
+
+    [SerializeField]
+    int selectPunchVibration;
+
+    [SerializeField]
+    float selectPunchElasticity;
 
     Camera cam;
     Color paintColor;
@@ -287,6 +300,7 @@ public class CursorScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             SetColor(newColor);
+            colorPreviewerObject.transform.DOPunchScale(colorPreviewerObject.transform.localScale * selectPunchScalar, selectPunchDuration, selectPunchVibration, selectPunchElasticity);
         }
         else if (Input.GetMouseButtonDown(1))
         {
