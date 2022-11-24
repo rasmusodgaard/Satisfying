@@ -11,11 +11,23 @@ public class BrushSelectionHighlight : SerializedMonoBehaviour
     [SerializeField]
     public Color highligtColor;
 
+    [SerializeField]
+    GameObject PaletteUI;
+
     public void SetBrushSelectionHighlight(BrushEnum selectedBrush)
     {
         foreach (var button in dictionaryOfButtons)
         {
             button.Value.color = Color.white;
+        }
+
+        if (selectedBrush == BrushEnum.standard)
+        {
+            PaletteUI.SetActive(true);
+        }
+        else
+        {
+            PaletteUI.SetActive(false);
         }
 
         dictionaryOfButtons[selectedBrush].color = highligtColor;
