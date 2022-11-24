@@ -270,6 +270,7 @@ public class CursorScript : MonoBehaviour
     void OnPaletteChanged(bool isOpen)
     {
         colorPreviewerObject.SetActive(isOpen);
+        brushSizeVisualizer.gameObject.SetActive(!isOpen);
     }
 
     private void ChangeBrushCursor(BrushBase value)
