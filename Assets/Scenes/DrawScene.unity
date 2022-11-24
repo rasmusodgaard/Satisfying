@@ -899,7 +899,8 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8492788079051641139, guid: e217d1159c957dd4395ee6546482068b,
+        type: 3}
     - target: {fileID: 8492788079051641139, guid: e217d1159c957dd4395ee6546482068b,
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.size

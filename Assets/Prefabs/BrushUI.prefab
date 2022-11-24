@@ -862,6 +862,7 @@ GameObject:
   - component: {fileID: 357128318985253076}
   - component: {fileID: 357128318985253079}
   - component: {fileID: 357128318985253078}
+  - component: {fileID: 6053803606367743945}
   m_Layer: 5
   m_Name: Brush
   m_TagString: Untagged
@@ -985,6 +986,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6053803606367743945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357128318985253096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: c13801f60b7569547b4ae63739160e47, type: 2}
+  infoLeft: "\xA3Paint Brush\n$It paints... "
+  infoRight: 
 --- !u!1 &357128319388083440
 GameObject:
   m_ObjectHideFlags: 0
