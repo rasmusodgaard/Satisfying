@@ -18,7 +18,7 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   fontStyles:
   - tag: $
-    color: {r: 0.72300005, g: 0.72300005, b: 0.72300005, a: 1}
+    color: {r: 1, g: 1, b: 1, a: 1}
     bold: 0
     italic: 0
     underline: 0
@@ -30,7 +30,7 @@ MonoBehaviour:
     underline: 0
     strikethrough: 0
   - tag: '@'
-    color: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 0}
+    color: {r: 1, g: 0.3160377, b: 0.3160377, a: 1}
     bold: 1
     italic: 0
     underline: 0

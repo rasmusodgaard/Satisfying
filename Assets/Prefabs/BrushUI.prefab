@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 273921949281978227}
   - component: {fileID: 7072580204118043302}
   - component: {fileID: 6708577316241910345}
+  - component: {fileID: 4767210189073975382}
   m_Layer: 5
   m_Name: Palette
   m_TagString: Untagged
@@ -135,6 +136,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4767210189073975382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296253440525318663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: c13801f60b7569547b4ae63739160e47, type: 2}
+  infoLeft: "\xA3Color Palette\n$Choose color for foregound (and background)"
+  infoRight: 
 --- !u!1 &357128317885507501
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,6 +532,7 @@ GameObject:
   - component: {fileID: 357128318616418125}
   - component: {fileID: 357128318616418124}
   - component: {fileID: 357128318616418127}
+  - component: {fileID: 1835953311666717766}
   m_Layer: 5
   m_Name: Turn
   m_TagString: Untagged
@@ -639,6 +656,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1835953311666717766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357128318616418113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: c13801f60b7569547b4ae63739160e47, type: 2}
+  infoLeft: "\xA3Turn Brush\n$Turns the pixels towards @THE EYE"
+  infoRight: 
 --- !u!1 &357128318630210323
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,6 +683,7 @@ GameObject:
   - component: {fileID: 357128318630210335}
   - component: {fileID: 357128318630210334}
   - component: {fileID: 357128318630210321}
+  - component: {fileID: 4730327133342956695}
   m_Layer: 5
   m_Name: Magnet
   m_TagString: Untagged
@@ -774,6 +807,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4730327133342956695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357128318630210323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: c13801f60b7569547b4ae63739160e47, type: 2}
+  infoLeft: "\xA3Magnet Brush\n$Push and pull pixels "
+  infoRight: 
 --- !u!1 &357128318656067186
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,6 +1193,7 @@ GameObject:
   - component: {fileID: 1486018086234833107}
   - component: {fileID: 8021250317695681999}
   - component: {fileID: 1108386571472063825}
+  - component: {fileID: 7977371667307220733}
   m_Layer: 5
   m_Name: Sprite
   m_TagString: Untagged
@@ -1268,6 +1317,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7977371667307220733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764478346444914245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: c13801f60b7569547b4ae63739160e47, type: 2}
+  infoLeft: "\xA3Shape Brush\n$Square pixels are boring. Try some other ones"
+  infoRight: 
 --- !u!1 &1736864302595938144
 GameObject:
   m_ObjectHideFlags: 0
@@ -1445,6 +1509,7 @@ GameObject:
   - component: {fileID: 8253344103087378672}
   - component: {fileID: 7604603679513938138}
   - component: {fileID: 5989283501640920607}
+  - component: {fileID: 3916455968549451012}
   m_Layer: 5
   m_Name: Reset
   m_TagString: Untagged
@@ -1568,6 +1633,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3916455968549451012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4185978022749214316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: c13801f60b7569547b4ae63739160e47, type: 2}
+  infoLeft: "\xA3Reset Brush\n$Reset transformations and color of pixels "
+  infoRight: 
 --- !u!1 &4392494884442488703
 GameObject:
   m_ObjectHideFlags: 0
@@ -1882,6 +1962,7 @@ GameObject:
   - component: {fileID: 1861643495272397574}
   - component: {fileID: 2006747036923524170}
   - component: {fileID: 8579625954046871862}
+  - component: {fileID: 5692561082433340671}
   m_Layer: 5
   m_Name: Save
   m_TagString: Untagged
@@ -2005,3 +2086,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5692561082433340671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7529684134424972477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: c13801f60b7569547b4ae63739160e47, type: 2}
+  infoLeft: "\xA3Save\n$If no one ever sees the art, does it excist?"
+  infoRight: 
