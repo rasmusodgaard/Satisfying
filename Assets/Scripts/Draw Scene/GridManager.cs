@@ -173,7 +173,7 @@ public class GridManager : MonoBehaviour
                     final = new HSBColor(y / gridSize.y, Mathf.InverseLerp(gridSize.x, gridSize.x / 2, x), 1).ToColor();
                 }
 
-                tileScripts[x, y].ColorTile(final);
+                tileScripts[x, y].SetColor(final);
             }
         }
 
@@ -187,7 +187,7 @@ public class GridManager : MonoBehaviour
         {
             for (int x = 0; x < gridSize.x; x++)
             {
-                tileScripts[x, y].ColorTile(currentImageBackup[x, y]);
+                tileScripts[x, y].SetColor(currentImageBackup[x, y]);
             }
         }
         isPaletteOpen = false;

@@ -13,7 +13,7 @@ public class ResetBrush : BrushBase
             TileScript tile = affectedTiles[i].GetComponent<TileScript>();
             if (tile != null)
             {
-                tile.ResetTransform();
+                tile.ResetTransformation();
             }
         }
     }

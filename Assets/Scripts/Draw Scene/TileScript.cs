@@ -12,22 +12,24 @@ public class TileScript : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         initColor = defaultColor;
-        ColorTile(defaultColor);
+        SetColor(defaultColor);
         initPosition = transform.localPosition;
+        initSprite = spriteRenderer.sprite;
     }
 
-    public void ResetTransform()
+    public void ResetTransformation()
     {
         transform.position = initPosition;
         transform.rotation = Quaternion.identity;
+        spriteRenderer.sprite = initSprite;
     }
 
     public void ResetColor()
     {
-        ColorTile(initColor);
+        SetColor(initColor);
     }
 
-    public bool ColorTile(Color color)
+    public bool SetColor(Color color)
     {
         if (spriteRenderer.color == color)
         {
@@ -47,6 +49,13 @@ public class TileScript : MonoBehaviour
 
     public void SetSprite(Sprite sprite)
     {
+        spriteRenderer.sprite = sprite;
+    }
+
+    public void SetAllTransformations(Vector3 position, Quaternion rotation, Sprite sprite)
+    {
+        transform.position = position;
+        transform.rotation = rotation;
         spriteRenderer.sprite = sprite;
     }
 

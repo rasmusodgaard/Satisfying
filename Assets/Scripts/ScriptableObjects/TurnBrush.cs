@@ -19,7 +19,7 @@ public class TurnBrush : BrushBase
         List<Transform> results = GetTilePixels(mousePosition, radius, tileTransforms);
         for (int i = 0; i < results.Count; i++)
         {
-            results[i].rotation = Quaternion.identity;
+            results[i].up = (Vector2)mousePosition - (Vector2)results[i].position;
         }
     }
 }

@@ -19,7 +19,7 @@ public class StandardBrush : BrushBase
             TileScript tile = affectedTiles[i].GetComponent<TileScript>();
             if (tile != null)
             {
-                tile.ColorTile(paintColor);
+                tile.SetColor(paintColor);
             }
         }
     }

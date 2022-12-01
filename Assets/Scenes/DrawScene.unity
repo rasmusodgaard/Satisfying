@@ -1015,6 +1015,11 @@ PrefabInstance:
       propertyPath: brushUi
       value: 
       objectReference: {fileID: 2066437193}
+    - target: {fileID: 7156458649638725190, guid: 06532fad7d854414597be7b5574625a0,
+        type: 3}
+      propertyPath: gridSizeDivider
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 7156458649638725191, guid: 06532fad7d854414597be7b5574625a0,
         type: 3}
       propertyPath: m_RootOrder
