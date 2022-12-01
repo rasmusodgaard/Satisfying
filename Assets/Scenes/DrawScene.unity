@@ -1018,8 +1018,14 @@ PrefabInstance:
     - target: {fileID: 7156458649638725190, guid: 06532fad7d854414597be7b5574625a0,
         type: 3}
       propertyPath: gridSizeDivider
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7156458649638725190, guid: 06532fad7d854414597be7b5574625a0,
+        type: 3}
+      propertyPath: colorPaletteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d7dde276f9e4c8d4bb0c0e65cc1796e8,
+        type: 3}
     - target: {fileID: 7156458649638725191, guid: 06532fad7d854414597be7b5574625a0,
         type: 3}
       propertyPath: m_RootOrder

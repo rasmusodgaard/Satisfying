@@ -17,16 +17,36 @@ public class TileScript : MonoBehaviour
         initSprite = spriteRenderer.sprite;
     }
 
-    public void ResetTransformation()
+    public void ResetTransformation(Sprite sprite = null)
     {
         transform.position = initPosition;
         transform.rotation = Quaternion.identity;
-        spriteRenderer.sprite = initSprite;
+        spriteRenderer.sprite = (sprite == null) ? initSprite : sprite;
     }
 
     public void ResetColor()
     {
         SetColor(initColor);
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public Quaternion GetRotation()
+    {
+        return transform.rotation;
+    }
+
+    public Color GetColor()
+    {
+        return spriteRenderer.color;
+    }
+
+    public Sprite GetSprite()
+    {
+        return spriteRenderer.sprite;
     }
 
     public bool SetColor(Color color)
@@ -42,11 +62,6 @@ public class TileScript : MonoBehaviour
         }
     }
 
-    public Color GetColor()
-    {
-        return spriteRenderer.color;
-    }
-
     public void SetSprite(Sprite sprite)
     {
         spriteRenderer.sprite = sprite;
@@ -58,5 +73,4 @@ public class TileScript : MonoBehaviour
         transform.rotation = rotation;
         spriteRenderer.sprite = sprite;
     }
-
 }

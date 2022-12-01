@@ -301,7 +301,9 @@ public class CursorScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             SetColor(newColor);
-            colorPreviewerObject.transform.DOPunchScale(colorPreviewerObject.transform.localScale * selectPunchScalar, selectPunchDuration, selectPunchVibration, selectPunchElasticity);
+            DOTween.Rewind(nameof(colorPreviewerObject));
+            DOTween.Kill(nameof(colorPreviewerObject));
+            colorPreviewerObject.transform.DOPunchScale(colorPreviewerObject.transform.localScale * selectPunchScalar, selectPunchDuration, selectPunchVibration, selectPunchElasticity).SetId(nameof(colorPreviewerObject));
         }
         else if (Input.GetMouseButtonDown(1))
         {

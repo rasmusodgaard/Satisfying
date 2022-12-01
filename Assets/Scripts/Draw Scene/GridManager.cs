@@ -32,22 +32,29 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     GameObject brushUi;
 
+    [SerializeField]
+    Sprite colorPaletteSprite = null;
+
     Color defaultColor = Color.gray;
 
-    private bool isPaletteOpen = false;
-    private Vector3 screenWorldspaceMin;
-    private Vector3 screenWorldspaceMax;
+    bool isPaletteOpen = false;
+    Vector3 screenWorldspaceMin;
+    Vector3 screenWorldspaceMax;
 
-    private Vector2 gridSize;
-    private Vector2 sideLengths;
+    Vector2 gridSize;
+    Vector2 sideLengths;
 
-    private float spriteSideLength;
-    private TileScript[,] tileScripts;
-    private float tileSize;
+    float spriteSideLength;
+    TileScript[,] tileScripts;
+    float tileSize;
 
-    private Color[,] currentImageBackup;
+    Color[,] imageColorBackup;
+    Vector3[,] imagePositionBackup;
+    Quaternion[,] imageRotationBackup;
+    Sprite[,] imageSpriteBackup;
 
-    private Camera cam;
+
+    Camera cam;
 
     [ShowInInspector, ReadOnly]
     float tileCount;
@@ -77,7 +84,11 @@ public class GridManager : MonoBehaviour
         // TODO: Consider making a quality adjustment option (number of pixels)
         //gridSize = new Vector2(Screen.width / gridSizeDivider, Screen.height / gridSizeDivider);
         gridSize = new Vector2(1920 / gridSizeDivider, 1080 / gridSizeDivider);
-        currentImageBackup = new Color[(int)gridSize.x, (int)gridSize.y];
+
+        imageColorBackup = new Color[(int)gridSize.x, (int)gridSize.y];
+        imagePositionBackup = new Vector3[(int)gridSize.x, (int)gridSize.y];
+        imageRotationBackup = new Quaternion[(int)gridSize.x, (int)gridSize.y];
+        imageSpriteBackup = new Sprite[(int)gridSize.x, (int)gridSize.y];
 
         double worldScreenHeight = cam.orthographicSize * 2.0;
         double worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
@@ -162,7 +173,11 @@ public class GridManager : MonoBehaviour
         {
             for (int x = 0; x < gridSize.x; x++)
             {
-                currentImageBackup[x, y] = tileScripts[x, y].GetColor();
+                imageColorBackup[x, y] = tileScripts[x, y].GetColor();
+                imagePositionBackup[x, y] = tileScripts[x, y].GetPosition();
+                imageRotationBackup[x, y] = tileScripts[x, y].GetRotation();
+                imageSpriteBackup[x, y] = tileScripts[x, y].GetSprite();
+
                 Color final = new Color();
                 if (x < gridSize.x / 2)
                 {
@@ -174,6 +189,7 @@ public class GridManager : MonoBehaviour
                 }
 
                 tileScripts[x, y].SetColor(final);
+                tileScripts[x, y].ResetTransformation(colorPaletteSprite);
             }
         }
 
@@ -187,7 +203,8 @@ public class GridManager : MonoBehaviour
         {
             for (int x = 0; x < gridSize.x; x++)
             {
-                tileScripts[x, y].SetColor(currentImageBackup[x, y]);
+                tileScripts[x, y].SetColor(imageColorBackup[x, y]);
+                tileScripts[x, y].SetAllTransformations(imagePositionBackup[x, y], imageRotationBackup[x, y], imageSpriteBackup[x, y]);
             }
         }
         isPaletteOpen = false;
