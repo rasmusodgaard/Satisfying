@@ -30,6 +30,9 @@ public class GridManager : MonoBehaviour
     GameObject ui;
 
     [SerializeField]
+    GameObject toolTipUi;
+
+    [SerializeField]
     GameObject brushUi;
 
     [SerializeField]
@@ -134,6 +137,8 @@ public class GridManager : MonoBehaviour
     // TODO: Make save location for desktop build
     private IEnumerator SaveScreenshotCoroutine()
     {
+        // BUG: Tooltips are still visible on screenshot even if parent object is disabled
+        toolTipUi.SetActive(false);
         ui.SetActive(false);
         yield return new WaitForEndOfFrame();
         string date = System.DateTime.Now.ToString("dd:MM:yyyy:HH:mm");
@@ -151,6 +156,7 @@ public class GridManager : MonoBehaviour
             WebGLFileSaver.SaveFile(png, "Skedgy - " + date, "image/png");
         }
         ui.SetActive(true);
+        toolTipUi.SetActive(true);
     }
 
     public void TogglePalette()

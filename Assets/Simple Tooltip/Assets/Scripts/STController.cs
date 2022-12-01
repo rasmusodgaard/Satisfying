@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class STController : MonoBehaviour
 {
@@ -14,12 +12,12 @@ public class STController : MonoBehaviour
     private RectTransform rect;
     private int showInFrames = -1;
     private bool showNow = false;
-    
+
     private void Awake()
     {
         // Load up both text layers
         var tmps = GetComponentsInChildren<TextMeshProUGUI>();
-        for(int i = 0; i < tmps.Length; i++)
+        for (int i = 0; i < tmps.Length; i++)
         {
             if (tmps[i].name == "_left")
                 toolTipTextLeft = tmps[i];
@@ -77,7 +75,7 @@ public class STController : MonoBehaviour
     public void SetRawText(string text, TextAlign align = TextAlign.Left)
     {
         // Doesn't change style, just the text
-        if(align == TextAlign.Left)
+        if (align == TextAlign.Left)
             toolTipTextLeft.text = text;
         if (align == TextAlign.Right)
             toolTipTextRight.text = text;
@@ -98,7 +96,7 @@ public class STController : MonoBehaviour
 
         // Convert all tags to TMPro markup
         var styles = style.fontStyles;
-        for(int i = 0; i < styles.Length; i++)
+        for (int i = 0; i < styles.Length; i++)
         {
             string addTags = "</b></i></u></s>";
             addTags += "<color=#" + ColorToHex(styles[i].color) + ">";

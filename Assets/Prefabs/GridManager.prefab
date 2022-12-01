@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pixelPrefab: {fileID: 14198853272177510, guid: b8c0988f9c91348d398324b8f00382c4,
     type: 3}
-  gridSizeDivider: 10
+  gridSizeDivider: 12
   ui: {fileID: 0}
   brushUi: {fileID: 0}
-  colorPaletteSprite: {fileID: 21300000, guid: a14b83361b606e94bbbb6c12de234fec, type: 3}
+  colorPaletteSprite: {fileID: 21300000, guid: d7dde276f9e4c8d4bb0c0e65cc1796e8, type: 3}
